@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose';
 export const TodoSchema = new mongoose.Schema({
-    name: String,
-    description: String,
-    creationdate:Date,
-    isCompleted: Boolean,
-    userId: Number,
     id: Number,
+    title: String,
+    description: String,
+    status: String,
+    user_id: Number,
+    created_at: { type: Date, default: Date.now }
   });

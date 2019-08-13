@@ -5,4 +5,5 @@ export interface Todo extends Document{
  title: string;
  description: string;
  status: string;
+ user_id:number;
 }

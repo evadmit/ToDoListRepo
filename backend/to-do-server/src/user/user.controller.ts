@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Post, Body } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Body, Header, Res, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interfaces/user.interface';
 import { UserDto } from './models/user.dto';
@@ -16,8 +16,13 @@ export class UserController {
     }
 
     @Post('register')
-    async create(@Body() userDto: UserDto){
-        this.userService.create(userDto);
+    async create(@Res() res,@Body() userDto: UserDto){
+        debugger;
+      const createdUser= await  this.userService.create(userDto);
+      return res.status(HttpStatus.OK).json({
+        message: "User registered successfully!",
+        user: createdUser
+    })
     }
 
     @Get('google-login')
