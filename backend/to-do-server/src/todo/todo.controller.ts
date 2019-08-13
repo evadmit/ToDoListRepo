@@ -11,6 +11,7 @@ constructor(private readonly toDoService:TodoService) {}
 
 @Get('todos')
 async findAll(@Res() res) {
+  debugger;
   const todos= await  this.toDoService.findAll();
  return res.status(HttpStatus.OK).json(todos);
  }
@@ -22,9 +23,11 @@ async findAll(@Res() res) {
  return res.status(HttpStatus.OK).json({message:"Item added", todo: newTodo})
   }
 
+ // http://localhost:3003/todo/delete?todoID=5d527b2762570509e809b53a example
   @Delete('delete')
-  async deleteTodo(@Res() res,@Query('todoID', new ValidateObjectId())todoID){
-    const deletedTodoItem  =await this.toDoService.deleteTodo(todoID);
+  async deleteTodo(@Res() res,@Query('todoID', new ValidateObjectId())todoID)
+  {
+    const deletedTodoItem  = await this.toDoService.deleteTodo(todoID);
 
     if(!deletedTodoItem) throw new NotFoundException('Item doesn`t exist');
     return res.status(HttpStatus.OK).json({

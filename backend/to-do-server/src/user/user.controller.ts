@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Post, Body, Header, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Body,Query, Header, Res, HttpStatus, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './interfaces/user.interface';
 import { UserDto } from './models/user.dto';
@@ -9,10 +9,14 @@ export class UserController {
 
     constructor(private readonly userService:UserService) {}
 
-    @Get('login')
+    @Post('login')
     @UseGuards(AuthGuard())
-    async loginUser(): Promise<User>{
-        return this.userService.find(2);
+    async loginUser(@Res() res,@Param ('email') email): Promise<User>{
+        const user = await this.userService.find(email);
+        return res.status(HttpStatus.OK).json({
+            message: "User was found!",
+            user: user  
+        })
     }
 
     @Post('register')

@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, UseGuards, Post,Request, Body } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/auth.service';
+import { UserLoginDto } from './shared/DTOs/userLogin.dto';
 
-@Controller()
+@Controller('api')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly authService: AuthService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  // {		"username": "evadmit@gmail.com", "password": "Qwe123!"} example
+ 
+
+  @UseGuards(AuthGuard('local'))
+  @Post('login')
+  async login(@Body() user: UserLoginDto) {
+     const token = this.authService.login(user);
+     return token;
   }
 }
