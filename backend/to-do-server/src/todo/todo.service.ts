@@ -46,10 +46,14 @@ export class TodoService {
         
     }
 
-    async deleteTodo(todoID: Number): Promise<any> {
+    async deleteTodo(todoID: Number, email: string): Promise<any> {
 
-        const deletedTodo = await this.todoModel.findByIdAndRemove(todoID);
-        return deletedTodo;
+       const deletedTodo = await this.todoModel.findByIdAndRemove(todoID);
+        if(deletedTodo){
+      await this.userService.deleteTodo(email, todoID);
+       
+    }
+       return deletedTodo;
     }
 
     async editTodo(todoID: Number, todoDto:TodoDto, email :string ): Promise<Todo>{

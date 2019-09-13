@@ -32,9 +32,9 @@ async findAll(@UserDecorator() user):Promise<ResponseGetAllTodosModel> {
 
   @Delete('delete')
   @UseGuards(AuthGuard('jwt'))
-  async deleteTodo(@Res() res,@Query('todoID', new ValidateObjectId())todoID)
+  async deleteTodo(@Res() res,@Query('todoID', new ValidateObjectId())todoID, @UserDecorator() user)
   {
-    const deletedTodoItem  = await this.toDoService.deleteTodo(todoID);
+    const deletedTodoItem  = await this.toDoService.deleteTodo(todoID,(user as User).email);
 
     if(!deletedTodoItem) throw new NotFoundException('Item doesn`t exist');
     return res.status(HttpStatus.OK).json({

@@ -10,6 +10,14 @@ export class UserDto{
     readonly password: string;
     }
 
+export class EditUserDto{
+        @IsNotEmpty()
+        readonly name: string;
+        @IsNotEmpty()
+        @IsEmail()
+        readonly email: string;
+        }
+
 export interface LoginDTO {
         email: string;
         password: string;

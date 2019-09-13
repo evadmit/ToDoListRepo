@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {User} from './interfaces/user.interface';
-import {UserDto, RegisterDTO, LoginDTO} from './models/user.dto';
+import {UserDto, RegisterDTO, LoginDTO, EditUserDto} from './models/user.dto';
 import * as bcrypt from 'bcrypt';
 import { Payload } from 'src/auth/interfaces/payload.interface';
 import { TodoDto } from 'src/todo/models/todo.dto';
@@ -35,13 +35,25 @@ async appendTodo(email: string,todo: Todo) {
   return ;
 }
 
+async deleteTodo(email: string, todoId: Number)
+{
+  console.log(todoId);
+  const user = await this.userModel.findOne({ email });
+  if (user) { 
+  var removed =  user.todos.find((value)=> value._id==todoId).remove();
+  console.log(removed);
+  user.save();
+  }
+  return removed;
+}
 async updateTodo(email: string, todo: Todo) {
   const user = await this.userModel.findOne({ email });
-  console.log(user._id, todo._id);
   if (user) { 
-   var todoss= user.update({"todos._id":todo._id}, {$set:{"todos.$[]":todo}});
-   console.log(todoss);
-    user.save();
+    await this.userModel.update({"email":email,"todos._id":todo._id, }, {'$set':{
+      'todos.$.title': todo.title,
+      'todos.$.description': todo.description, 
+      'todos.$.coordinates': todo.coordinates, 
+      'todos.$.isCompleted': todo.isCompleted,}});
   }
   return ;
 }
@@ -62,7 +74,7 @@ async findByLogin(userDTO: LoginDTO) {
     }
   }
 
-  async findByPayload(payload: Payload) {
+async findByPayload(payload: Payload) {
     const { email } = payload;
     return await this.userModel.findOne({ email });
   }
@@ -70,5 +82,13 @@ async findByLogin(userDTO: LoginDTO) {
 async find( email:string): Promise<User>
     {
 return await this.userModel.findOne({email: email});
-    }  
+    } 
+    
+async editProfile (editUserDto:EditUserDto, email:string): Promise<User>
+{
+return await this.userModel.update({"email": email}, {'$set': {
+'name': editUserDto.name,
+'email': editUserDto.email
+  }});
+}
 }
