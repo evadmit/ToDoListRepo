@@ -1,9 +1,13 @@
 import * as mongoose from 'mongoose';
+import { CoordinatesDto } from 'src/shared/DTOs/coordinates.dto';
 export const TodoSchema = new mongoose.Schema({
-    id: Number,
     title: String,
     description: String,
-    status: String,
-    user_id: Number,
-    created_at: { type: Date, default: Date.now }
+    user_id: Number, 
+    isCompleted: Boolean,  
+    coordinates: Object,
+    created_at: { type: Date, default: Date.now },
+   // image: { data: Buffer, contentType: String }
   });
+
+ 

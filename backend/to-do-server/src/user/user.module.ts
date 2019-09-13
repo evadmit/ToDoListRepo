@@ -4,16 +4,16 @@ import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './user.schema';
 import { PassportModule } from '@nestjs/passport';
-const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
+
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'bearer' }),
+    PassportModule.register({ defaultStrategy: 'jwt', session: true, property: 'user' }),
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
     ]),
   ],
   controllers: [UserController],
   providers: [UserService],
-  exports:[UserService]
+  exports:[UserService,MongooseModule]
 })
 export class UserModule {}

@@ -1,9 +1,12 @@
 import { Document } from 'mongoose';
+import { Todo } from 'src/todo/intrfaces/todo.interface';
 
 export interface User extends Document 
 {
-    id:number;
+    _id:number;
     name: string;
     email: string;
-    password: string;
+    password: string;  
+    image: { data: Buffer, contentType: String };
+    todos : Todo[];
 }

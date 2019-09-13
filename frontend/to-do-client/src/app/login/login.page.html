@@ -1,0 +1,36 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Welcome
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col size-md="6" size="12">
+<ion-card style="align-content: center"  >
+  <ion-card-header><ion-card-title>Hi</ion-card-title></ion-card-header>
+  <ion-card-content>
+    <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+
+        <ion-button id="btn-login" size="large" expand="block" (click)="validateLogin();">Login</ion-button>
+        <div style="margin:0 auto" > 
+          <ion-button id="lnk-register" fill="clear" expand="block" routerLink="/register" routerDirection="root">I'm new here</ion-button>
+</div>
+  </ion-card-content>
+</ion-card>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

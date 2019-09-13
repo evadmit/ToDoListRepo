@@ -3,9 +3,10 @@ import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TodoSchema } from './todo.schema';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [
+  imports: [UserModule,
     MongooseModule.forFeature([
       { name: 'Todo', schema: TodoSchema },
     ]),
