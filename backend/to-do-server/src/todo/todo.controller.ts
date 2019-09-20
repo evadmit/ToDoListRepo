@@ -1,6 +1,6 @@
 import { Controller, Get, Res, HttpStatus, Post, Body, Delete, Query, NotFoundException, UseGuards } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { TodoDto, ResponseGetAllTodosModel } from './models/todo.dto';
+import { TodoDto, ResponseGetAllTodosModel, RequestAddToDoModelItem } from './models/todo.dto';
 import { ValidateObjectId } from 'src/shared/pipes/validate-object-id.pipes';
 import { Todo } from './intrfaces/todo.interface';
 import { AuthGuard } from '@nestjs/passport';
@@ -24,8 +24,8 @@ async findAll(@UserDecorator() user):Promise<ResponseGetAllTodosModel> {
  
  @Post('add-todo')
  @UseGuards(AuthGuard('jwt'))
- async create(@Res() res, @Body() todoDto:TodoDto, @UserDecorator() user) {
-
+ async create(@Res() res, @Body() todoDto:RequestAddToDoModelItem, @UserDecorator() user) {
+  console.log(todoDto);
   const newTodo= await this.toDoService.create(todoDto,(user as User).email);
  return res.status(HttpStatus.OK).json({message:"Item added", todo: newTodo})
   }

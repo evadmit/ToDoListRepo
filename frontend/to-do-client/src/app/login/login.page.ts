@@ -1,47 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
-import { User } from '../models/user';
+import { User, LoginResponseModel } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.page.html',
-  styleUrls: ['login.page.scss'],
-  providers: [ AuthService ]
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-
-
 export class LoginPage implements OnInit {
-
   email:string=""
   password:string=""
   public user : User;
 
-
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.user = new User();
   }
-validateLogin() {
+  validateLogin() {
     if(this.user.email && this.user.password) {
-        this.authService.validateLogin(this.user).subscribe(result => {
-        console.log('result is ', result);
-      }, error => {
-        console.log('error is ', error);
-      });
+  var result =  this.authService.validateLogin(this.user);
+  if(result){
+    alert('Welcome!');
+    this.router.navigateByUrl('/tabs');
+  }
+  // .subscribe(result => {
+  //       console.log('result is ', result);
+  //       return result;
+  //     }, error => {
+  //       console.log('error is ', error);
+  //     });
     } else {
         alert('enter email and password');
     }
   }
-ngOnInit(){}
-
-login(){
-const{email, password}= this 
-try{
-
+  ngOnInit() {
+  }
 }
-catch(err){
-
-}
-}
-}
-

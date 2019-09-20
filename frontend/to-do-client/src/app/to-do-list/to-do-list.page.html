@@ -3,7 +3,30 @@
     <ion-title>to-do-list</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content padding>
+  <ion-list>
 
-<ion-content>
+  <ion-item-sliding *ngFor='let item of items'>
+    <ion-item>
+      <ion-label>
+        {{ item.title }}
+      </ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="item.isCompleted"></ion-checkbox>
+    </ion-item>
 
+    <ion-item-options side="end">
+      <ion-item-option color="danger" (click)="deleteItem(item._id);">
+        <ion-icon name="trash"></ion-icon>
+        Delete
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item-options side="start">
+      <ion-item-option color="secondary" (click)="edit(item);">
+        <ion-icon slot="end" name="settings"></ion-icon>
+        Edit
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
 </ion-content>

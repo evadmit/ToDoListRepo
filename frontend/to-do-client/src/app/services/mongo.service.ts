@@ -34,8 +34,5 @@ export class MongoService {
     return this.client.auth.loginWithCredential(credential);
   }
 
-  register(user){
-    
-  }
   
 }

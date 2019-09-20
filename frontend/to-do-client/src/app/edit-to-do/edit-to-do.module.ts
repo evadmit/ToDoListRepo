@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewToDoPage } from './new-to-do.page';
-import { IonicStorageModule } from '@ionic/storage';
+import { EditToDoPage } from './edit-to-do.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: NewToDoPage
+    component: EditToDoPage
   }
 ];
 
@@ -20,10 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormsModule,
-    IonicStorageModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [NewToDoPage]
+  declarations: [EditToDoPage]
 })
-export class NewToDoPageModule {}
+export class EditToDoPageModule {}

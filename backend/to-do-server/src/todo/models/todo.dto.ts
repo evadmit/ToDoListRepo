@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { CoordinatesDto } from "src/shared/DTOs/coordinates.dto";
+import { ObjectID } from "mongodb";
 
 export class TodoDto{
     @IsNotEmpty()
@@ -17,9 +18,17 @@ export class TodoDto{
     }
     
     export class ResponseTodoGetAllTodosModelItem{
+        _id: ObjectID;
         title: string;
         description: string;
         user_id: number;
         isCompleted: boolean;
         coordinates : CoordinatesDto;
+    }
+
+
+    export class RequestAddToDoModelItem {
+            title:string;
+            description: string;
+            coordinates : CoordinatesDto;
     }

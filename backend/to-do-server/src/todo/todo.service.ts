@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { TodoDto, ResponseGetAllTodosModel, ResponseTodoGetAllTodosModelItem } from './models/todo.dto';
+import { TodoDto, ResponseGetAllTodosModel, ResponseTodoGetAllTodosModelItem, RequestAddToDoModelItem } from './models/todo.dto';
 import { Todo} from './intrfaces/todo.interface';
 import { User } from 'src/user/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
@@ -16,8 +16,7 @@ export class TodoService {
         ) {
     }
 
-    async create(todoDto: TodoDto, email :string ): Promise<Todo> {
-       
+    async create(todoDto: RequestAddToDoModelItem, email :string ): Promise<Todo> {
         const createdTodo = new this.todoModel(todoDto); 
         await this.userService.appendTodo(email, createdTodo);
         return await createdTodo.save();
@@ -33,6 +32,7 @@ export class TodoService {
         const todoList: ResponseGetAllTodosModel = {
             todoList: user.todos.map((value) => {                
                 const response: ResponseTodoGetAllTodosModelItem = {
+                    _id: value._id,
                     title: value.title,
                     description: value.description,
                     user_id: value.user_id,
