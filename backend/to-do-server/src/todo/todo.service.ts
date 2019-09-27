@@ -37,7 +37,8 @@ export class TodoService {
                     description: value.description,
                     user_id: value.user_id,
                     isCompleted: value.isCompleted,
-                    coordinates: value.coordinates
+                    coordinates: value.coordinates,
+                    image: value.image
                 };
                 return response;
             })
@@ -61,5 +62,12 @@ export class TodoService {
         const editedTodo = await this.todoModel.findByIdAndUpdate(todoID, todoDto,{new: true});
         await this.userService.updateTodo(email, editedTodo);
         return editedTodo;
+    }
+
+    async editTodoStatus(todoID: Number, email :string ): Promise<Todo>{
+
+        const targetTodo = await this.todoModel.findById(todoID);
+        targetTodo.isCompleted = (!targetTodo.isCompleted);
+        return await this.editTodo(todoID,targetTodo,email); 
     }
 }

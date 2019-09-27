@@ -20,7 +20,6 @@ export class LoginPage implements OnInit {
     if(this.user.email && this.user.password) {
   var result =  this.authService.validateLogin(this.user);
   if(result){
-    alert('Welcome!');
     this.router.navigateByUrl('/tabs');
   }
   // .subscribe(result => {

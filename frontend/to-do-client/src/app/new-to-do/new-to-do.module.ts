@@ -7,6 +7,10 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewToDoPage } from './new-to-do.page';
 import { IonicStorageModule } from '@ionic/storage';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { HereMapModule } from '../here-map/here-map.module';
 
 const routes: Routes = [
   {
@@ -21,9 +25,12 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     FormsModule,
+    HereMapModule,
     IonicStorageModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [NewToDoPage]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  declarations: [NewToDoPage],
+  providers:[Geolocation]
 })
 export class NewToDoPageModule {}

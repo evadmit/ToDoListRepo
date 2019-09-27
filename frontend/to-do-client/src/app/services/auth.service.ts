@@ -6,6 +6,7 @@ import { tap } from  'rxjs/operators';
 import config from '../config/config';
 import { HttpClient } from '@angular/common/http';
 import { User, LoginResponseModel } from '../models/user';
+import { LOGIN_AUTH_URL } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
 
  async validateLogin(user: User): Promise<boolean>{
   console.log("begin validating... ", user);
- var res = await this.http.post<LoginResponseModel>('http://localhost:3003/auth/login', {
+ var res = await this.http.post<LoginResponseModel>(LOGIN_AUTH_URL, {
      email: user.email,
      password: user.password
    }).toPromise();

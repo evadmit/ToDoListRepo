@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
 import { ResponseTodoGetAllTodosModelItem } from '../models/todo';
-import { Events } from '@ionic/angular';
+import { Events, IonItemSliding} from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,10 @@ export class ToDoListPage implements OnInit {
   items: Array<ResponseTodoGetAllTodosModelItem>;
 
   constructor(public todoService: TodoService,private router: Router, public events: Events) {
+  
+  
     events.subscribe('todo:added', async () => {
+      console.log("todo added");
       await this.FillToDoList();
     });
     events.subscribe('todo:edited', async () => {
@@ -24,17 +27,24 @@ export class ToDoListPage implements OnInit {
 
   async ngOnInit() {
     await this.FillToDoList();
-    
   }
 async FillToDoList(){
   this.items = await this.todoService.getToDoList();
 }
 async deleteItem(itemId: string){
+this.items.splice(this.items.findIndex(x => x._id == itemId), 1)
 await this.todoService.deleteToDo(itemId);
 await this.FillToDoList();
 }
 
-async edit(item: ResponseTodoGetAllTodosModelItem){
+async updateItemStatus(itemId: string){
+  await this.todoService.updateStatus(itemId);
+  await this.FillToDoList();
+  }
+
+async edit(item: ResponseTodoGetAllTodosModelItem, slidingItem: IonItemSliding){
+  slidingItem.close();
+  this.events.publish('coordinates:setup',item.coordinates);
   console.log("navigating....", item);
   let navigationExtras: NavigationExtras = {
     queryParams: {
@@ -42,6 +52,19 @@ async edit(item: ResponseTodoGetAllTodosModelItem){
     }
   };
   console.log("navigationExtras....", navigationExtras);
-  this.router.navigate(['/edit-to-do'], navigationExtras);
+  await this.router.navigate(['/edit-to-do'], navigationExtras);
+}
+
+async addNew(){
+  console.log("navigate to new todo.");
+  await this.router.navigate(['/new-to-do']);
+}
+doRefresh(event) {
+  console.log('Begin async operation');
+
+  setTimeout(async () => {
+    await this.FillToDoList().then(event.target.complete());
+    event.target.complete();
+  }, 1000);
 }
 }

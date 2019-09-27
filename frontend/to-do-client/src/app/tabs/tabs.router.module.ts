@@ -18,12 +18,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'new-to-do',
+        path: 'contact',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../new-to-do/new-to-do.module').then(m => m.NewToDoPageModule)
+              import('../contact/contact.module').then(m => m.ContactPageModule)
           }
         ]
       },

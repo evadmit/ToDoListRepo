@@ -5,7 +5,6 @@ import {User} from './interfaces/user.interface';
 import {UserDto, RegisterDTO, LoginDTO, EditUserDto} from './models/user.dto';
 import * as bcrypt from 'bcrypt';
 import { Payload } from 'src/auth/interfaces/payload.interface';
-import { TodoDto } from 'src/todo/models/todo.dto';
 import { Todo } from 'src/todo/intrfaces/todo.interface';
 
 @Injectable()
@@ -53,7 +52,9 @@ async updateTodo(email: string, todo: Todo) {
       'todos.$.title': todo.title,
       'todos.$.description': todo.description, 
       'todos.$.coordinates': todo.coordinates, 
-      'todos.$.isCompleted': todo.isCompleted,}});
+      'todos.$.isCompleted': todo.isCompleted,
+      'todos.$.image': todo.image,
+    }});
   }
   return ;
 }

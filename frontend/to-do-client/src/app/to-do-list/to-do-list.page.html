@@ -4,14 +4,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
   <ion-list>
 
-  <ion-item-sliding *ngFor='let item of items'>
+  <ion-item-sliding *ngFor='let item of items' #slidingItem>
     <ion-item>
       <ion-label>
         {{ item.title }}
       </ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="item.isCompleted"></ion-checkbox>
+      <ion-checkbox slot="end" [(ngModel)]="item.isCompleted" (click)="updateItemStatus(item._id);"></ion-checkbox>
     </ion-item>
 
     <ion-item-options side="end">
@@ -22,11 +28,16 @@
     </ion-item-options>
 
     <ion-item-options side="start">
-      <ion-item-option color="secondary" (click)="edit(item);">
+      <ion-item-option color="secondary" (click)="edit(item, slidingItem);">
         <ion-icon slot="end" name="settings"></ion-icon>
-        Edit
+        Details
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
   </ion-list>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed" (click)="addNew();">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>

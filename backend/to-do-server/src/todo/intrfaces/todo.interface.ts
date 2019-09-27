@@ -8,5 +8,6 @@ export interface Todo extends Document{
  isCompleted: boolean;
  coordinates: CoordinatesDto;
  created_at: { type: Date };
+ image : string;
 // image: { data: Buffer, contentType: String };
 }

@@ -15,12 +15,7 @@ export class UserController {
     async editTodo(@Res() res, @Body() editUserDto:EditUserDto ,@UserDecorator() user){
   
       const editedProfile= await this.userService.editProfile(editUserDto,(user as User).email);
-      if(!editedProfile) throw new NotFoundException ('Item doesn`t extst');
-  
-      return res.status(HttpStatus.OK).json({
-        message:'Item updated',
-        todo: editedProfile
-      })
+      return editedProfile;
   
     }
 }

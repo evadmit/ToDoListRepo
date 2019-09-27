@@ -11,6 +11,7 @@ export class TodoDto{
     readonly user_id: number;
     readonly isCompleted: boolean;
     readonly coordinates : CoordinatesDto;
+    readonly image : string;
     }
 
     export class ResponseGetAllTodosModel{
@@ -24,6 +25,7 @@ export class TodoDto{
         user_id: number;
         isCompleted: boolean;
         coordinates : CoordinatesDto;
+        image : string;
     }
 
 
@@ -31,4 +33,6 @@ export class TodoDto{
             title:string;
             description: string;
             coordinates : CoordinatesDto;
+            isCompleted: boolean;
+            image : string;
     }

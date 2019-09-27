@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { REGISTER_AUTH_URL } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class UserService {
 
   async register(newUser: RegisterRequestModel):Promise<RegisterResponseModel> {
 
-      var resp = await this.http.post<RegisterResponseModel>('http://localhost:3003/auth/register/', newUser).toPromise();
+    try{
+      var resp = await this.http.post<RegisterResponseModel>(REGISTER_AUTH_URL, newUser).toPromise();
       if(!resp.user){
           console.log("result: ", resp);
           }
@@ -26,6 +28,12 @@ export class UserService {
             this.router.navigateByUrl('/tabs');
           }
 return resp;
+    }
+    catch(err){
+      alert(JSON.stringify(err));
+
+    }
+   
 
     }
 

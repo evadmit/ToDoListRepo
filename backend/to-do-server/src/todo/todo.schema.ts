@@ -7,7 +7,7 @@ export const TodoSchema = new mongoose.Schema({
     isCompleted: Boolean,  
     coordinates: Object,
     created_at: { type: Date, default: Date.now },
-   // image: { data: Buffer, contentType: String }
+    image:  String 
   });
 
  

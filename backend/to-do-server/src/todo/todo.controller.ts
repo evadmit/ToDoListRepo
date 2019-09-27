@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Post, Body, Delete, Query, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Post, Body, Delete, Query, NotFoundException, UseGuards, Put } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { TodoDto, ResponseGetAllTodosModel, RequestAddToDoModelItem } from './models/todo.dto';
 import { ValidateObjectId } from 'src/shared/pipes/validate-object-id.pipes';
@@ -9,51 +9,47 @@ import { User } from 'src/user/interfaces/user.interface';
 
 
 @Controller('todo')
+@UseGuards(AuthGuard('jwt'))
 export class TodoController {
 
-constructor(private readonly toDoService:TodoService) {}
+  constructor(private readonly toDoService: TodoService) { }
 
-@Get('todos')
-@UseGuards(AuthGuard('jwt'))
-async findAll(@UserDecorator() user):Promise<ResponseGetAllTodosModel> {
-  const todos= await  this.toDoService.findAll((user as User).email);
-  console.log(todos);
-  
- return todos;
- }
+  @Get('todos')
+  async findAll(@UserDecorator() user): Promise<ResponseGetAllTodosModel> {
+    const todos = await this.toDoService.findAll((user as User).email);
+    return todos;
+  }
+
+  @Post('add')
+  async create(@Body() todoDto: RequestAddToDoModelItem, @UserDecorator() user): Promise<any> {
+    console.log("response from client! Add to do");
+    const newTodo = await this.toDoService.create(todoDto, (user as User).email);
  
- @Post('add-todo')
- @UseGuards(AuthGuard('jwt'))
- async create(@Res() res, @Body() todoDto:RequestAddToDoModelItem, @UserDecorator() user) {
-  console.log(todoDto);
-  const newTodo= await this.toDoService.create(todoDto,(user as User).email);
- return res.status(HttpStatus.OK).json({message:"Item added", todo: newTodo})
+    return newTodo;
   }
 
   @Delete('delete')
-  @UseGuards(AuthGuard('jwt'))
-  async deleteTodo(@Res() res,@Query('todoID', new ValidateObjectId())todoID, @UserDecorator() user)
-  {
-    const deletedTodoItem  = await this.toDoService.deleteTodo(todoID,(user as User).email);
-
-    if(!deletedTodoItem) throw new NotFoundException('Item doesn`t exist');
-    return res.status(HttpStatus.OK).json({
-      message: 'Item deleted',
-      todo: deletedTodoItem
-    })
+  async deleteTodo(@Query('todoID', new ValidateObjectId()) todoID, @UserDecorator() user) {
+    const deletedTodoItem = await this.toDoService.deleteTodo(todoID, (user as User).email);
+    console.log("Item deleted ", deletedTodoItem);
+    if (!deletedTodoItem) throw new NotFoundException('Item doesn`t exist');
+    return deletedTodoItem;
   }
 
   @Post('edit')
-  @UseGuards(AuthGuard('jwt'))
-  async editTodo(@Res() res, @Query('todoID',new ValidateObjectId())todoID, @Body() todoDto:TodoDto,@UserDecorator() user){
+  async editTodo(@Query('todoID', new ValidateObjectId()) todoID, @Body() todoDto: TodoDto, @UserDecorator() user) {
 
-    const editedTodo= await this.toDoService.editTodo(todoID, todoDto,(user as User).email);
-    if(!editedTodo) throw new NotFoundException ('Item doesn`t extst');
+    const editedTodo = await this.toDoService.editTodo(todoID, todoDto, (user as User).email);
 
-    return res.status(HttpStatus.OK).json({
-      message:'Item updated',
-      todo: editedTodo
-    })
+    return editedTodo;
+
+  }
+
+  @Post('change-status')
+  async editTodoStatus(@Query('todoID', new ValidateObjectId()) todoID, @UserDecorator() user) {
+
+    const editedTodo = await this.toDoService.editTodoStatus(todoID, (user as User).email);
+    return editedTodo;
 
   }
 }

@@ -1,16 +1,20 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+export const SERVER_URL = 'https://8f64ec5b.ngrok.io';
+
+const TODO_CONTROLLER_URL = '/todo/';
+const USER_CONTROLLER_URL = '/user/';
+const AUTH_CONTROLLER_URL = '/auth/';
+
+export const EDIT_TODO_URL = SERVER_URL+TODO_CONTROLLER_URL+'edit?todoID=';
+export const ADD_TODO_URL = SERVER_URL+TODO_CONTROLLER_URL+'add/';
+export const GET_TODOS_URL = SERVER_URL+TODO_CONTROLLER_URL+'todos/';
+export const DELETE_TODO_URL = SERVER_URL+TODO_CONTROLLER_URL+'delete?todoID=';
+export const CHANGE_TODO_STATUS_URL = SERVER_URL+TODO_CONTROLLER_URL+'change-status?todoID=';
+
+export const REGISTER_AUTH_URL = SERVER_URL+AUTH_CONTROLLER_URL+'register/';
+export const LOGIN_AUTH_URL = SERVER_URL+AUTH_CONTROLLER_URL+'login/';
+export const hereMapApiKey = "GLT2b_0SS2cfSgN6PTxIVq2HJrUpmK0qmrsjTrCgtDc";

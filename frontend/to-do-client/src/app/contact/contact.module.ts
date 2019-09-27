@@ -1,17 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EditToDoPage } from './edit-to-do.page';
-import { HereMapModule } from '../here-map/here-map.module';
+import { ContactPage } from './contact.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: EditToDoPage
+    component: ContactPage
   }
 ];
 
@@ -20,10 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    HereMapModule,
     RouterModule.forChild(routes)
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  declarations: [EditToDoPage]
+  declarations: [ContactPage]
 })
-export class EditToDoPageModule {}
+export class ContactPageModule {}

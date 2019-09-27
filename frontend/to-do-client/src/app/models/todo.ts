@@ -2,12 +2,15 @@ export class NewToDoModel{
     title: string;
     description: string;
     coordinates: Coordinates;
+    isCompleted: boolean = false;
+    image:string;
 }
 
 export class NewToDoResponseModel{
     title: string;
     description: string;
     coordinates: Coordinates;
+    image:string;
 }
 
 export class Coordinates{
@@ -24,12 +27,19 @@ export class ResponseGetAllTodosModel{
     todoList: Array<ResponseTodoGetAllTodosModelItem>;
 }
 
+export class ResponseUpdateStatusTodoModel{
+    message: string;
+    todo:ResponseTodoGetAllTodosModelItem;
+}
+
+
 export class ResponseTodoGetAllTodosModelItem{
     _id: string;
     title: string;
     description: string;
     isCompleted: boolean;
     coordinates : Coordinates;
+    image:string;
 }
 
 
@@ -39,4 +49,5 @@ export class ResponseTodoEditTodoModelItem{
     description: string;
     isCompleted: boolean;
     coordinates : Coordinates;
+    image:string;
 }
