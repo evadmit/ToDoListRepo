@@ -1,3 +1,4 @@
+
 export class NewToDoModel{
     title: string;
     description: string;
@@ -43,6 +44,7 @@ export class ResponseTodoGetAllTodosModelItem{
 }
 
 
+
 export class ResponseTodoEditTodoModelItem{
     _id: string;
     title: string;
@@ -51,3 +53,10 @@ export class ResponseTodoEditTodoModelItem{
     coordinates : Coordinates;
     image:string;
 }
+
+
+export enum Action {
+    add = 0,
+    update = 1,
+    delete = 2
+    }

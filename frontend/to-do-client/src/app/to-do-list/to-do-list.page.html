@@ -14,7 +14,7 @@
 
   <ion-item-sliding *ngFor='let item of items' #slidingItem>
     <ion-item>
-      <ion-label>
+      <ion-label class="label">
         {{ item.title }}
       </ion-label>
       <ion-checkbox slot="end" [(ngModel)]="item.isCompleted" (click)="updateItemStatus(item._id);"></ion-checkbox>
@@ -22,15 +22,19 @@
 
     <ion-item-options side="end">
       <ion-item-option color="danger" (click)="deleteItem(item._id);">
-        <ion-icon name="trash"></ion-icon>
-        Delete
+        <ion-icon name="trash" ></ion-icon>
+        <ion-label >
+            Delete
+          </ion-label>
+        
       </ion-item-option>
     </ion-item-options>
 
     <ion-item-options side="start">
       <ion-item-option color="secondary" (click)="edit(item, slidingItem);">
         <ion-icon slot="end" name="settings"></ion-icon>
-        Details
+        <ion-label> Details</ion-label>
+       
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>

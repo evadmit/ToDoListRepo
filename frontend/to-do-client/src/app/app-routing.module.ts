@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [LoginGuardService] },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [LoginGuardService]  },
   { path: 'to-do-list', loadChildren: './to-do-list/to-do-list.module#ToDoListPageModule', canActivate: [AuthGuardService] },
-  { path: 'map', loadChildren: './map/map.module#MapPageModule', canActivate: [AuthGuardService]  },
   { path: 'new-to-do', loadChildren: './new-to-do/new-to-do.module#NewToDoPageModule', canActivate: [AuthGuardService] },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuardService] },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },

@@ -17,7 +17,6 @@ export class ToDoListPage implements OnInit {
   
   
     events.subscribe('todo:added', async () => {
-      console.log("todo added");
       await this.FillToDoList();
     });
     events.subscribe('todo:edited', async () => {
@@ -28,6 +27,7 @@ export class ToDoListPage implements OnInit {
   async ngOnInit() {
     await this.FillToDoList();
   }
+
 async FillToDoList(){
   this.items = await this.todoService.getToDoList();
 }
@@ -56,11 +56,9 @@ async edit(item: ResponseTodoGetAllTodosModelItem, slidingItem: IonItemSliding){
 }
 
 async addNew(){
-  console.log("navigate to new todo.");
   await this.router.navigate(['/new-to-do']);
 }
 doRefresh(event) {
-  console.log('Begin async operation');
 
   setTimeout(async () => {
     await this.FillToDoList().then(event.target.complete());

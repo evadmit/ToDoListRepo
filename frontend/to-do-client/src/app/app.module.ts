@@ -24,6 +24,10 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
  
 import { IonicStorageModule } from '@ionic/storage';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SqliteService } from './services/sqlite.service';
+import { NetworkService } from './services/network.service';
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     AuthGuardService,
+    Network,
     StatusBar,
     Geolocation,
     SplashScreen,
@@ -54,6 +59,7 @@ import { IonicStorageModule } from '@ionic/storage';
     Camera,
     File,
     WebView,
+    SQLite
   ],
   bootstrap: [AppComponent]
 })

@@ -19,12 +19,10 @@ export class UserService {
     try{
       var resp = await this.http.post<RegisterResponseModel>(REGISTER_AUTH_URL, newUser).toPromise();
       if(!resp.user){
-          console.log("result: ", resp);
           }
           if (resp.user) {
             await this.authService.login( resp.token);
     
-            console.log("token: ", resp.token);
             this.router.navigateByUrl('/tabs');
           }
 return resp;

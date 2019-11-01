@@ -20,7 +20,6 @@ export class AuthService {
   }); }
 
  async validateLogin(user: User): Promise<boolean>{
-  console.log("begin validating... ", user);
  var res = await this.http.post<LoginResponseModel>(LOGIN_AUTH_URL, {
      email: user.email,
      password: user.password
@@ -34,10 +33,8 @@ export class AuthService {
      if (res.user) {
        await this.login(res.token);
        await this.storage.set("ACCESS_TOKEN", res.token);
-       console.log("token: ", res.token);
      }
 
-   console.log("res ", res);
         return true;
         
   }
@@ -51,7 +48,6 @@ export class AuthService {
   }
 
   async login(token) {
-    console.log("token", token );
     await this.storage.set(config.TOKEN_KEY, token);
     this.authenticationState.next(true);
   }
@@ -59,7 +55,6 @@ export class AuthService {
   logout() {
     return this.storage.remove(config.TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
-      console.log("auth done");
            
     });
   }
