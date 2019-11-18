@@ -1,6 +1,6 @@
 import { Controller, Get, Res, HttpStatus, Post, Body, Delete, Query, NotFoundException, UseGuards, Put } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { TodoDto, ResponseGetAllTodosModel, RequestAddToDoModelItem } from './models/todo.dto';
+import { TodoDto, ResponseGetAllTodosModel, RequestAddToDoModelItem, SyncNewTodosModel } from './models/todo.dto';
 import { ValidateObjectId } from 'src/shared/pipes/validate-object-id.pipes';
 import { Todo } from './intrfaces/todo.interface';
 import { AuthGuard } from '@nestjs/passport';
@@ -51,5 +51,14 @@ export class TodoController {
     const editedTodo = await this.toDoService.editTodoStatus(todoID, (user as User).email);
     return editedTodo;
 
+  }
+
+  @Post('sync-todos')
+  async syncTodos(@Body() newTodos:SyncNewTodosModel, @UserDecorator() user): Promise<boolean>{
+console.log("starting to sync");
+
+const res = await this.toDoService.syncTodos(newTodos, (user as User).email);
+console.log(res);
+    return true;
   }
 }

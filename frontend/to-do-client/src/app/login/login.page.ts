@@ -22,12 +22,6 @@ export class LoginPage implements OnInit {
   if(result){
     this.router.navigateByUrl('/tabs');
   }
-  // .subscribe(result => {
-  //       console.log('result is ', result);
-  //       return result;
-  //     }, error => {
-  //       console.log('error is ', error);
-  //     });
     } else {
         alert('enter email and password');
     }

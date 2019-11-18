@@ -17,7 +17,7 @@
       <ion-label class="label">
         {{ item.title }}
       </ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="item.isCompleted" (click)="updateItemStatus(item._id);"></ion-checkbox>
+      <ion-checkbox slot="end" [(ngModel)]="item.isCompleted" (click)="updateItemStatus(item);"></ion-checkbox>
     </ion-item>
 
     <ion-item-options side="end">

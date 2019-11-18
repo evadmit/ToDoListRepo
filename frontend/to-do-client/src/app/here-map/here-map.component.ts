@@ -23,7 +23,6 @@ export class HereMapComponent implements OnInit {
 
   public constructor(private readonly geolocation: Geolocation, public events: Events) {
     this.location = new Coordinates(0,0);
-    console.log("HereMapComponent constructor");
     events.subscribe('coordinates:setup', async (location) => {
       await this.setupLocationForDetails(location);
     });
@@ -37,7 +36,6 @@ export class HereMapComponent implements OnInit {
 
  async setupLocationForDetails(location: Coordinates) {
     this.isMarkerDraggable=false;
-   console.log("Setup location....");
     this.location = location;
   }
 
@@ -65,7 +63,6 @@ export class HereMapComponent implements OnInit {
   }
 
   private createMap(): void {
-    console.log("create map");
     let defaultLayers = this.platform.createDefaultLayers();
 
     this.map = new H.Map(
@@ -103,7 +100,6 @@ export class HereMapComponent implements OnInit {
         this.location.latitude = target.b.lat;
         this.location.longitude = target.b.lng;
         this.events.publish('location:changed', this.location);
-        console.log("location changed", this.location);
       }
     }, false);
 

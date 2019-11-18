@@ -3,7 +3,10 @@ export const environment = {
   production: false
 };
 
-export const SERVER_URL = 'http://localhost:3003';
+
+//export const SERVER_URL = 'http://localhost:3003';
+
+export const SERVER_URL = 'https://40204b9f.ngrok.io';//testing
 
 const TODO_CONTROLLER_URL = '/todo/';
 const USER_CONTROLLER_URL = '/user/';

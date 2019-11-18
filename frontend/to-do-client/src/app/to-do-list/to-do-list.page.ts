@@ -37,21 +37,19 @@ await this.todoService.deleteToDo(itemId);
 await this.FillToDoList();
 }
 
-async updateItemStatus(itemId: string){
-  await this.todoService.updateStatus(itemId);
+async updateItemStatus(item: ResponseTodoGetAllTodosModelItem){
+  await this.todoService.updateStatus(item);
   await this.FillToDoList();
   }
 
 async edit(item: ResponseTodoGetAllTodosModelItem, slidingItem: IonItemSliding){
   slidingItem.close();
   this.events.publish('coordinates:setup',item.coordinates);
-  console.log("navigating....", item);
   let navigationExtras: NavigationExtras = {
     queryParams: {
       special: JSON.stringify(item)
     }
   };
-  console.log("navigationExtras....", navigationExtras);
   await this.router.navigate(['/edit-to-do'], navigationExtras);
 }
 

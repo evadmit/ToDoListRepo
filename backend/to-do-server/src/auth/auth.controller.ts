@@ -32,6 +32,7 @@ export class AuthController {
           email: user.email
         };
         const token = await this.authService.signPayload(payload);
+        console.log(token);
         return { user, token };
       }
 

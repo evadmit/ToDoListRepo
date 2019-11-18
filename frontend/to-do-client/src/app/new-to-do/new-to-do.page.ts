@@ -15,6 +15,7 @@ export class NewToDoPage implements OnInit {
   public todo: NewToDoModel;
   constructor(private todoService: TodoService, private router: Router, public events: Events) {
     this.todo = new NewToDoModel();
+    this.todo.coordinates = new Coordinates(0, 0 );
     this.events.subscribe('location:changed',async (location) => {
       await this.setLocation(location); });
    
@@ -30,11 +31,7 @@ export class NewToDoPage implements OnInit {
   async saveToDo() {
     if (this.todo.title && this.todo.description) {
 
-      console.log("todo: ", this.todo);
-
       var res = await this.todoService.addTodo(this.todo);
-      console.log("res ", res);
-
       this.events.publish('todo:added');
       await this.router.navigateByUrl('/tabs');
 

@@ -25,10 +25,19 @@ async create(userDTO: RegisterDTO) {
 
 async appendTodo(email: string,todo: Todo) {
   const user = await this.userModel.findOne({ email });
-  console.log(user._id);
   if (user) { 
-    console.log(todo);
     user.todos.push(todo);
+    user.save();
+  }
+  return ;
+}
+
+async appendTodos(email: string,todo: any[]) {
+  const user = await this.userModel.findOne({ email });
+  if (user) { 
+    todo.forEach(async todoItem =>{
+      user.todos.push(todoItem)
+  });
     user.save();
   }
   return ;
@@ -36,11 +45,9 @@ async appendTodo(email: string,todo: Todo) {
 
 async deleteTodo(email: string, todoId: Number)
 {
-  console.log(todoId);
   const user = await this.userModel.findOne({ email });
-  if (user) { 
+  if (user && todoId) { 
   var removed =  user.todos.find((value)=> value._id==todoId).remove();
-  console.log(removed);
   user.save();
   }
   return removed;
@@ -53,10 +60,21 @@ async updateTodo(email: string, todo: Todo) {
       'todos.$.description': todo.description, 
       'todos.$.coordinates': todo.coordinates, 
       'todos.$.isCompleted': todo.isCompleted,
-      'todos.$.image': todo.image,
+      'todos.$.image': todo.image
     }});
   }
   return ;
+}
+
+async removeAll(email: string){
+
+const user = await this.userModel.findOne({ email });
+if (user) { 
+  await this.userModel.update({"email":email},  { '$set' : {'todos': [] }})
+  user.save();
+}
+return ;
+
 }
 
 async findByLogin(userDTO: LoginDTO) {

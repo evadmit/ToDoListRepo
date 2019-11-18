@@ -27,7 +27,6 @@ export class InterceptorService implements HttpInterceptor {
     return from(this.storage.get('ACCESS_TOKEN'))
       .pipe(
         switchMap(token => {
-          console.log(token);
 
           if (token) {
             request = request.clone({
@@ -54,15 +53,11 @@ export class InterceptorService implements HttpInterceptor {
           });
 
 
-          console.log(request);
-
         
           return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
-              console.log(event);
 
               if (event instanceof HttpResponse) {
-                console.log('event--->>>', event);
               }
 
               return event;

@@ -27,9 +27,7 @@ export class MongoService {
     let credential = new AnonymousCredential();
     if (user !== null) {
       credential = new UserPasswordCredential(user.email, user.password);
-      console.log('Authenticated user logged');
     } else {
-      console.log('Anonymous user logged');
     }
     return this.client.auth.loginWithCredential(credential);
   }

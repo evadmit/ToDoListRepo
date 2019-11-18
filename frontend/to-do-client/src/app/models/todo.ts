@@ -1,13 +1,16 @@
+import { ignoreElements } from 'rxjs/operators';
 
 export class NewToDoModel{
     title: string;
     description: string;
     coordinates: Coordinates;
     isCompleted: boolean = false;
+    isDisplayable: boolean = true;
     image:string;
 }
 
 export class NewToDoResponseModel{
+    _id: string;
     title: string;
     description: string;
     coordinates: Coordinates;
@@ -21,6 +24,8 @@ export class Coordinates{
     } 
     longitude: number;
     latitude: number;
+    
+    todo_id: string;
    
 }
 
@@ -58,5 +63,6 @@ export class ResponseTodoEditTodoModelItem{
 export enum Action {
     add = 0,
     update = 1,
-    delete = 2
+    delete = 2,
+    updateStatus = 3
     }

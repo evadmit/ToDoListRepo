@@ -31,8 +31,6 @@ export class RegisterPage implements OnInit {
   newUser.email=this.registerUser.email;
   newUser.name=this.registerUser.name;
   newUser.password=this.registerUser.password;
-  console.log(newUser);
   var result = await this.userService.register(newUser);
-  console.log(result);
 }
 }

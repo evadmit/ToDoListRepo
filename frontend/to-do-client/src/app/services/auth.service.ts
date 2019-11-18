@@ -25,7 +25,6 @@ export class AuthService {
      password: user.password
    }).toPromise();
 
-     console.log("res ", res);
      if (!res.user) {
       
        return false;

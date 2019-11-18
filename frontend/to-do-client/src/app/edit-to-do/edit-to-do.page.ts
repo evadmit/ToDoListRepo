@@ -36,7 +36,6 @@ export class EditToDoPage implements OnInit {
     
   }
   ngAfterViewInit() {
-    console.log(this.item);
 
 }
 
