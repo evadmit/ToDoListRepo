@@ -55,10 +55,11 @@ export class TodoController {
 
   @Post('sync-todos')
   async syncTodos(@Body() newTodos:SyncNewTodosModel, @UserDecorator() user): Promise<boolean>{
+
 console.log("starting to sync");
 
 const res = await this.toDoService.syncTodos(newTodos, (user as User).email);
 console.log(res);
-    return true;
+    return res;
   }
 }

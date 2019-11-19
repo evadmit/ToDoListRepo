@@ -14,6 +14,7 @@ export class NetworkService {
   private online: Observable<boolean> = undefined;
 
   constructor(public network: Network, public platform: Platform) { 
+
 this.online = Observable.create( observer =>{
   observer.next(true);
 }).pipe(mapTo(true));
@@ -23,8 +24,10 @@ this.online = merge(
   this.network.onConnect().pipe(mapTo(true)),
   this.network.onDisconnect().pipe(mapTo(false))
 );
-} else{
-  this.online = merge(
+} 
+
+else{
+    this.online = merge(
 
     of(navigator.onLine),
     fromEvent(window,'online').pipe(mapTo(true)),

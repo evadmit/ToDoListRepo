@@ -3,6 +3,7 @@ import { TodoService } from '../services/todo.service';
 import { ResponseTodoGetAllTodosModelItem } from '../models/todo';
 import { Events, IonItemSliding} from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
+import { SqliteService } from '../services/sqlite.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -13,7 +14,7 @@ export class ToDoListPage implements OnInit {
 
   items: Array<ResponseTodoGetAllTodosModelItem>;
 
-  constructor(public todoService: TodoService,private router: Router, public events: Events) {
+  constructor(public todoService: TodoService,private router: Router, public events: Events, private sqliteService: SqliteService) {
   
   
     events.subscribe('todo:added', async () => {
@@ -62,5 +63,6 @@ doRefresh(event) {
     await this.FillToDoList().then(event.target.complete());
     event.target.complete();
   }, 1000);
+this.items.forEach(it =>  this.sqliteService.addOrReplace(it) );
 }
 }

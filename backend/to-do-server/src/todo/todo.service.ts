@@ -79,10 +79,14 @@ export class TodoService {
        console.log("todosToAdd ", todosToAdd);
        console.log("todosToUpdate ", todosToUpdate);
        console.log("todosToDelete ", todosToDelete);
-
-        await this.insertTodos(todosToAdd, email);
+try {
+    await this.insertTodos(todosToAdd, email);
         await this.editTodos(todosToUpdate, email);
         await this.deleteTodos(todosToDelete, email);
+} catch (error) {
+    return false;
+}
+        
 
         return true;
     }

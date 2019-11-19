@@ -17,20 +17,26 @@ export class EditTodoLocalModel extends ResponseTodoEditTodoModelItem{
     action: Action = 1;
     _id: string;
     isDisplayable: boolean = true;
-    /**
-     *
-     */
-    /**
-     *
-     */
     constructor();
     constructor( id: string);
     constructor( id?: string) {
         super();
         if(id){
         this._id = id;
-       // this.action = 3;
         this.isDisplayable = false;}
+    }
+}
+export class EditTodoStatusLocalModel extends ResponseTodoEditTodoModelItem{
+    isSynced: boolean = true;
+    action: Action = 1;
+    _id: string;
+    isDisplayable: boolean = true;
+    constructor();
+    constructor( id: string);
+    constructor( id?: string) {
+        super();
+        if(id){
+        this._id = id;}
     }
 }
 

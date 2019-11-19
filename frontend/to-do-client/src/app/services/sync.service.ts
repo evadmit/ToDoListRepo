@@ -12,18 +12,22 @@ export class SyncService {
 
   constructor(private http: HttpClient,private authService: AuthService,public events: Events) { }
 
-  async syncTodos (todos : SyncNewTodosModel):Promise<boolean>{
+  async syncTodos (todos : SyncNewTodosModel): Promise<boolean>{
     if(!this.authService.isAuthenticated())
     {
       console.log("auth error");
     }
-  
-    var res = await this.http.post<SyncNewTodosModel>(SYNC_TODOS_URL,todos).toPromise();
-    if(!res){
-      return false;
-    }
 
+    try {
+    var res = await this.http.post<SyncNewTodosModel>(SYNC_TODOS_URL,todos).toPromise();
+    console.log("sync res",res); 
     return true;
+    }
+   catch (error) {
+   console.log("sync error",error); 
+   return false;
+    }
+  
   }
  
 }
