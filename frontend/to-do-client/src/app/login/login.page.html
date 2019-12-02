@@ -28,9 +28,18 @@
         <div style="margin:0 auto" > 
           <ion-button id="lnk-register" fill="clear" expand="block" routerLink="/register" routerDirection="root">I'm new here</ion-button>
 </div>
+
+
   </ion-card-content>
 </ion-card>
 </ion-col>
 </ion-row>
+
+<div class="flex">
+<ion-button  class="authbutton"  size="small" (click)="loginWithGoogle()" ><ion-icon name="logo-google"></ion-icon></ion-button>
+  <ion-button class="authbutton"  size="small" (click)="loginWithFacebook()"><ion-icon name="logo-facebook"></ion-icon></ion-button>
+</div>
 </ion-grid>
+
+
 </ion-content>

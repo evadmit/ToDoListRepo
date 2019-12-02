@@ -13,6 +13,6 @@ import { UserModule } from 'src/user/user.module';
   ],
   controllers: [TodoController],
   providers: [TodoService],
-  exports:[TodoService]
+  exports: [TodoService]
 })
-export class TodoModule {}
+export class TodoModule { }

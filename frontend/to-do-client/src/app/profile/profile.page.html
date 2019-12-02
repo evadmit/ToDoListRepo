@@ -5,34 +5,34 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
-  <ion-label position = "floating" class="label">Name</ion-label>
-  <!-- <ion-input [(ngModel)]="profile.name"></ion-input> -->
- <ion-input></ion-input>
-    </ion-item>
-<ion-button>Update</ion-button>
+  <ion-item>
+    <ion-label position="floating" class="label">Name</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-button>Update</ion-button>
 
 
-<ion-button>Quit
-  <ion-icon slot="end" name="exit"></ion-icon></ion-button>
+  <ion-button>Quit
+    <ion-icon slot="end" name="exit"></ion-icon>
+  </ion-button>
 
 
-  <ion-label position = "floating" class="label">SqliteTest</ion-label>
+  <ion-label position="floating" class="label">SqliteTest</ion-label>
 
 
   <table>
     <tr>
-        <td>title||</td>
-        <td>isSynced||</td>
-        <td>action||</td>
-        <td>isDisplayable||</td>
+      <td>title||</td>
+      <td>isSynced||</td>
+      <td>action||</td>
+      <td>isDisplayable||</td>
     </tr>
-<tr *ngFor="let item of items">
-<td>{{item.title}}</td>
-<td>{{item.isSynced}}</td>
-<td>{{item.action}}</td>
-<td>{{item.isDisplayable}}</td>
-</tr>
+    <tr *ngFor="let item of items">
+      <td>{{item.title}}</td>
+      <td>{{item.isSynced}}</td>
+      <td>{{item.action}}</td>
+      <td>{{item.isDisplayable}}</td>
+    </tr>
 
   </table>
 

@@ -1,4 +1,4 @@
 export default {
-    TOKEN_KEY: 'auth-token',
+    TOKEN_KEY: 'ACCESS_TOKEN',
     COLLECTION_KEY: 'users'
 };

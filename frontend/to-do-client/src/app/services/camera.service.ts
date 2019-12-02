@@ -6,8 +6,8 @@ import { CameraOptions, Camera } from '@ionic-native/Camera/ngx';
 })
 export class CameraService {
 
- constructor (private camera: Camera) { }
- 
+  constructor(private camera: Camera) { }
+
   public image: string;
 
   public options: CameraOptions = {
@@ -21,9 +21,9 @@ export class CameraService {
     targetWidth: 800,
   };
 
- 
 
-  public async getPicture() {
+
+  async getPicture() {
     let fired = new Date();
     console.log('Cam fired on:', fired);
 

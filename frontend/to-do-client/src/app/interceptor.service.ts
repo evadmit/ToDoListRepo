@@ -53,7 +53,7 @@ export class InterceptorService implements HttpInterceptor {
           });
 
 
-        
+
           return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
 

@@ -23,4 +23,4 @@ const routes: Routes = [
   ],
   declarations: [ToDoListPage]
 })
-export class ToDoListPageModule {}
+export class ToDoListPageModule { }

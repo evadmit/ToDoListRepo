@@ -7,7 +7,7 @@ import { Injectable, UnauthorizedException, HttpException, HttpStatus } from '@n
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),      
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'evadmkfforkejekkdlslo',
     });
   }
@@ -21,5 +21,5 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       );
     }
     return done(null, user);
-  }  
+  }
 }

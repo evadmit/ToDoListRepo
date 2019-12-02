@@ -5,16 +5,14 @@ import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [LoginGuardService] },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [LoginGuardService]  },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule',  canActivate: [LoginGuardService] },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule', canActivate: [LoginGuardService] },
   { path: 'to-do-list', loadChildren: './to-do-list/to-do-list.module#ToDoListPageModule', canActivate: [AuthGuardService] },
   { path: 'new-to-do', loadChildren: './new-to-do/new-to-do.module#NewToDoPageModule', canActivate: [AuthGuardService] },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuardService] },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },
-  { path: 'edit-to-do', loadChildren: './edit-to-do/edit-to-do.module#EditToDoPageModule', canActivate: [AuthGuardService] },
-  { path: 'contact', loadChildren: './contact/contact.module#ContactPageModule' },
-  
+  { path: 'edit-to-do', loadChildren: './edit-to-do/edit-to-do.module#EditToDoPageModule', canActivate: [AuthGuardService] }
 ];
 @NgModule({
   imports: [
@@ -22,4 +20,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

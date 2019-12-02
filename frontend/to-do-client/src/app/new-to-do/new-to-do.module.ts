@@ -29,8 +29,8 @@ const routes: Routes = [
     IonicStorageModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [NewToDoPage],
-  providers:[Geolocation]
+  providers: [Geolocation]
 })
-export class NewToDoPageModule {}
+export class NewToDoPageModule { }

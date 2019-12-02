@@ -24,7 +24,7 @@ export class TodoController {
   async create(@Body() todoDto: RequestAddToDoModelItem, @UserDecorator() user): Promise<any> {
     console.log("response from client! Add to do");
     const newTodo = await this.toDoService.create(todoDto, (user as User).email);
- 
+
     return newTodo;
   }
 
@@ -54,12 +54,12 @@ export class TodoController {
   }
 
   @Post('sync-todos')
-  async syncTodos(@Body() newTodos:SyncNewTodosModel, @UserDecorator() user): Promise<boolean>{
+  async syncTodos(@Body() newTodos: SyncNewTodosModel, @UserDecorator() user): Promise<boolean> {
 
-console.log("starting to sync");
+    console.log("starting to sync");
 
-const res = await this.toDoService.syncTodos(newTodos, (user as User).email);
-console.log(res);
+    const res = await this.toDoService.syncTodos(newTodos, (user as User).email);
+    console.log(res);
     return res;
   }
 }

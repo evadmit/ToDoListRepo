@@ -8,34 +8,37 @@
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" size="12">
-  <ion-card style="align-content: center"  >
-    <ion-card-header><ion-card-title>Fill the form</ion-card-title></ion-card-header>
-    <ion-card-content>
-        <ion-item>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input type="text" [(ngModel)]="registerUser.name"></ion-input>
-          </ion-item>
-         
-      <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="registerUser.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="registerUser.password"></ion-input>
-    </ion-item>
-   <ion-item>
+        <ion-card style="align-content: center">
+          <ion-card-header>
+            <ion-card-title>Fill the form</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input type="text" [(ngModel)]="registerUser.name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" [(ngModel)]="registerUser.email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" [(ngModel)]="registerUser.password"></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-label position="floating">Confirm password</ion-label>
               <ion-input type="password" [(ngModel)]="registerUser.confirmPassword"></ion-input>
             </ion-item>
 
-          <ion-button id="btn-register" size="large" expand="block" (click)="register();">Sign Up</ion-button>
-          <div style="margin:0 auto" > 
-            <ion-button id="btn-backto-login" fill="clear" expand="block" routerLink="/login" routerDirection="root">I have an acount</ion-button> 
-              </div>
-    </ion-card-content>
-  </ion-card>
-  </ion-col>
-  </ion-row>
+            <ion-button id="btn-register" size="large" expand="block" (click)="register();">Sign Up</ion-button>
+            <div style="margin:0 auto">
+              <ion-button id="btn-backto-login" fill="clear" expand="block" routerLink="/login" routerDirection="root">I
+                have an acount</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

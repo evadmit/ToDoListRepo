@@ -1,4 +1,4 @@
-  
+
 import { Controller, Post, Body, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDTO, RegisterDTO } from 'src/user/models/user.dto';
@@ -9,46 +9,54 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('auth')
 export class AuthController {
 
-    constructor( private userService: UserService,private authService: AuthService) {
+  constructor(private userService: UserService, private authService: AuthService) {
 
-    }
+  }
 
-    @Post('login') 
-    async login(@Body() userDTO: LoginDTO)
-    {
-        const user = await this.userService.findByLogin(userDTO);
-        const payload = {
-          email: user.email  
-        };
-        const token = await this.authService.signPayload(payload);
-        return { user, token };
-    }
-    
-      @Post('register')
-      async register(@Body() userDTO: RegisterDTO) {
-        console.log("login");
-        const user = await this.userService.create(userDTO);
-        const payload: Payload = {
-          email: user.email
-        };
-        const token = await this.authService.signPayload(payload);
-        console.log(token);
-        return { user, token };
-      }
+  @Post('login')
+  async login(@Body() userDTO: LoginDTO) {
+    const user = await this.userService.findByLogin(userDTO);
+    const payload = {
+      email: user.email
+    };
+    const token = await this.authService.signPayload(payload);
+    return { user, token };
+  }
 
-      @Get('google')
-    @UseGuards(AuthGuard('google'))
-    googleLogin() {
-    }
+  @Post('register')
+  async register(@Body() userDTO: RegisterDTO) {
+    console.log("login");
+    const user = await this.userService.create(userDTO);
+    const payload: Payload = {
+      email: user.email
+    };
+    const token = await this.authService.signPayload(payload);
+    console.log(token);
+    return { user, token };
+  }
 
-    @Get('google/callback')
-    @UseGuards(AuthGuard('google'))
-    googleLoginCallback(@Req() req, @Res() res) {
-        const token = req.user.token;
-        if (token) {
-         console.log("success");
-        } else {
-          console.log("error");    
-        }
-    }
+  @UseGuards(AuthGuard('facebook-token'))
+  @Get('login-facebook')
+  async getTokenAfterFacebookSignIn(@Req() req) {
+    var user = req.user;
+    console.log("getTokenAfterFacebookSignIn",req.user);
+     const payload = {
+       email: req.user.email
+     };
+    const token = await this.authService.signPayload(payload);
+    return { user, token };
+  }
+
+  @Post('google')
+  async googleLogin(@Body() userDTO: RegisterDTO)
+  {
+    console.log("google login");
+    const user = await this.userService.findOrCreateGoogleProfile(userDTO);
+    const payload: Payload = {
+      email: user.email
+    };
+    const token = await this.authService.signPayload(payload);
+    console.log(token);
+    return { user, token };
+  }
 }

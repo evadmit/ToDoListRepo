@@ -10,22 +10,24 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./new-to-do.page.scss'],
 })
 export class NewToDoPage implements OnInit {
-  
-  
-  public todo: NewToDoModel;
-  constructor(private todoService: TodoService, private router: Router, public events: Events) {
+
+  private todo: NewToDoModel;
+
+  constructor(private todoService: TodoService, private router: Router, private events: Events) {
+
     this.todo = new NewToDoModel();
-    this.todo.coordinates = new Coordinates(0, 0 );
-    this.events.subscribe('location:changed',async (location) => {
-      await this.setLocation(location); });
-   
+    this.todo.coordinates = new Coordinates(0, 0);
+    this.events.subscribe('location:changed', async (location) => 
+    {
+      await this.setLocation(location);
+    });
+
   }
   ngOnInit() {
   }
 
-
-  async setLocation(location: any) {
-    this.todo.coordinates=location;
+  private async setLocation(location: any) {
+    this.todo.coordinates = location;
   }
 
   async saveToDo() {

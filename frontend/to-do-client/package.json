@@ -16,6 +16,7 @@
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
     "@angular/core": "~8.1.2",
+    "@angular/fire": "^5.2.3",
     "@angular/forms": "~8.1.2",
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
@@ -23,9 +24,11 @@
     "@google/maps": "^1.0.1",
     "@ionic-native/camera": "^5.14.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/facebook": "^5.17.0",
     "@ionic-native/file": "^5.14.0",
     "@ionic-native/file-path": "^5.14.0",
     "@ionic-native/geolocation": "^5.14.0",
+    "@ionic-native/google-plus": "^5.17.0",
     "@ionic-native/ionic-webview": "^5.14.0",
     "@ionic-native/native-storage": "^5.13.0",
     "@ionic-native/network": "^5.16.0",
@@ -38,10 +41,13 @@
     "cordova-android": "8.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-camera": "^4.1.0",
+    "cordova-plugin-facebook4": "^6.2.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-googleplus": "^8.2.0",
     "cordova-sqlite-storage": "^3.3.0",
     "core-js": "^2.5.4",
+    "firebase": "^7.4.0",
     "leaflet": "^1.5.1",
     "mongodb-stitch-browser-sdk": "^4.5.0",
     "mongoose": "^5.7.8",
@@ -100,7 +106,14 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-plugin-file": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "1443087942516078",
+        "APP_NAME": "ToDoList",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.5.2"
+      },
+      "cordova-plugin-googleplus": {}
     },
     "platforms": [
       "android",

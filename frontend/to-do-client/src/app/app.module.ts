@@ -9,47 +9,50 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthModule } from  './services/auth.module';
+import { AuthModule } from './services/auth.module';
 
-import { HTTP_INTERCEPTORS, HttpClientModule }    from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
 
 import { InterceptorService } from './interceptor.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
- 
+
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { FilePath } from '@ionic-native/file-path/ngx';
- 
+import { Facebook } from '@ionic-native/facebook/ngx';
+
 import { IonicStorageModule } from '@ionic/storage';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { SqliteService } from './services/sqlite.service';
-import { NetworkService } from './services/network.service';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @NgModule({
   declarations: [
     AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule,  
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
     HttpClientModule,
     AuthModule,
     HttpClientModule,
     IonicStorageModule.forRoot()
-    ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AuthGuardService,
     Network,
     StatusBar,
     Geolocation,
+    Facebook,
+    GooglePlus,
     SplashScreen,
-    { provide: RouteReuseStrategy,
-      useClass: IonicRouteStrategy },
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
@@ -59,8 +62,9 @@ import { Network } from '@ionic-native/network/ngx';
     Camera,
     File,
     WebView,
-    SQLite
+    SQLite,
+    
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

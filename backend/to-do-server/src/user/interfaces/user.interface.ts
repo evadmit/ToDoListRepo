@@ -9,4 +9,11 @@ export interface User extends Document
     password: string;  
     image: { data: Buffer, contentType: String };
     todos : Todo[];
+    facebook: Facebook;
 }
+
+export interface Facebook{
+    id: string;
+    avatar: { data: Buffer, contentType: String };
+}
+

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Stitch, RemoteMongoClient, AnonymousCredential, StitchAppClient, RemoteMongoDatabase,
-  UserPasswordCredential } from 'mongodb-stitch-browser-sdk';
+import {
+  Stitch, RemoteMongoClient, AnonymousCredential, StitchAppClient, RemoteMongoDatabase,
+  UserPasswordCredential
+} from 'mongodb-stitch-browser-sdk';
 
-  import { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,6 @@ export class MongoService {
 
   login(user) {
 
-    // Anonymous login.
     let credential = new AnonymousCredential();
     if (user !== null) {
       credential = new UserPasswordCredential(user.email, user.password);
@@ -32,5 +33,5 @@ export class MongoService {
     return this.client.auth.loginWithCredential(credential);
   }
 
-  
+
 }

@@ -5,44 +5,44 @@ import { TodoSchema } from 'src/todo/todo.schema';
 import { Todo } from 'src/todo/intrfaces/todo.interface';
 
 export const UserSchema = new mongoose.Schema({
-    id: Number,
-    name: String,    
-    email: {
-      type: String,
-      unique: true,
-      required: true
+  id: Number,
+  name: String,
+  email: {
+    type: String,
+    unique: true,
+    required: true
   },
-   password: {
-      type: String,
-      required: true
+  password: {
+    type: String,
+    required: true
   },
-  image: { 
-      data: Buffer, contentType: String 
-    },
-  todos : [TodoSchema]
+  image: {
+    data: Buffer, contentType: String
+  },
+  todos: [TodoSchema]
 });
 
-  var TodosModel = mongoose.model('TodosModel', TodoSchema);
-  
-  UserSchema.pre<User>('save', function(next) {
+var TodosModel = mongoose.model('TodosModel', TodoSchema);
 
-    let user = this;
+UserSchema.pre<User>('save', function (next) {
 
-    if(!user.isModified('password')) return next();
+  let user = this;
 
-     bcrypt.genSalt(10, (err, salt) => {
+  if (!user.isModified('password')) return next();
 
-        if(err) return next(err);
+  bcrypt.genSalt(10, (err, salt) => {
 
-        bcrypt.hash(user.password, salt, (err, hash) => {
+    if (err) return next(err);
 
-            if(err) return next(err);
-            user.password = hash;
-            next();
+    bcrypt.hash(user.password, salt, (err, hash) => {
 
-        });
+      if (err) return next(err);
+      user.password = hash;
+      next();
 
     });
 
-}); 
+  });
+
+});
 

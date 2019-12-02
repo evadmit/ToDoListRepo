@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from  "@angular/router";
 import { RegisterUser } from '../models/register-user';
 import { UserService } from '../services/user.service';
 import { RegisterRequestModel } from '../models/user';
@@ -10,27 +9,27 @@ import { RegisterRequestModel } from '../models/user';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  
-  public registerUser : RegisterUser;
 
+  private registerUser: RegisterUser;
 
-
-  constructor(private userService: UserService) 
-  { 
+  constructor(private userService: UserService) {
     this.registerUser = new RegisterUser();
   }
 
   ngOnInit() {
   }
-  async register()
-{
-  if(this.registerUser.password!=this.registerUser.confirmPassword){
-    alert("password doesn't match");
+
+  async register() {
+
+    if (this.registerUser.password != this.registerUser.confirmPassword) 
+    {
+      alert("password doesn't match");
+    }
+    var newUser = new RegisterRequestModel();
+    newUser.email = this.registerUser.email;
+    newUser.name = this.registerUser.name;
+    newUser.password = this.registerUser.password;
+
+    await this.userService.register(newUser);
   }
-  var newUser = new RegisterRequestModel();
-  newUser.email=this.registerUser.email;
-  newUser.name=this.registerUser.name;
-  newUser.password=this.registerUser.password;
-  var result = await this.userService.register(newUser);
-}
 }

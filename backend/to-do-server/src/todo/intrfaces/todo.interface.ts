@@ -9,5 +9,4 @@ export interface Todo extends Document{
  created_at: { type: Date };
  image : string;
  userEmail : string;
-// image: { data: Buffer, contentType: String };
 }

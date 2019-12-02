@@ -22,6 +22,11 @@ export class LoginResponseModel {
     token: string;
 }
 
+export class GoogleLoginRequestModel{
+    email: string;
+    name: string;
+    password: string;
+}
 export class RegisterRequestModel {
     name: string;
     email: string;

@@ -10,24 +10,23 @@ import { Events } from '@ionic/angular';
 })
 export class SyncService {
 
-  constructor(private http: HttpClient,private authService: AuthService,public events: Events) { }
+  constructor(private http: HttpClient, private authService: AuthService, public events: Events) { }
 
-  async syncTodos (todos : SyncNewTodosModel): Promise<boolean>{
-    if(!this.authService.isAuthenticated())
-    {
+  async syncTodos(todos: SyncNewTodosModel): Promise<boolean> {
+    if (!this.authService.isAuthenticated()) {
       console.log("auth error");
     }
 
     try {
-    var res = await this.http.post<SyncNewTodosModel>(SYNC_TODOS_URL,todos).toPromise();
-    console.log("sync res",res); 
-    return true;
+      var res = await this.http.post<SyncNewTodosModel>(SYNC_TODOS_URL, todos).toPromise();
+      console.log("sync res", res);
+      return true;
     }
-   catch (error) {
-   console.log("sync error",error); 
-   return false;
+    catch (error) {
+      console.log("sync error", error);
+      return false;
     }
-  
+
   }
- 
+
 }
