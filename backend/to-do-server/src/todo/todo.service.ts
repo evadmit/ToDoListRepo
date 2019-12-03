@@ -1,26 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { TodoDto, ResponseGetAllTodosModel, ResponseTodoGetAllTodosModelItem, RequestAddToDoModelItem, SyncNewTodosModel, AllLocalTodosModelItem } from './models/todo.dto';
-import { Todo } from './intrfaces/todo.interface';
-import { User } from 'src/user/interfaces/user.interface';
+import { Todo, TodoDto, ResponseGetAllTodosModel, ResponseTodoGetAllTodosModelItem, RequestAddToDoModelItem, SyncNewTodosModel, AllLocalTodosModelItem } from './models/todo.dto';
+
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class TodoService {
 
     constructor(
-        @InjectModel('Todo') private todoModel: Model<Todo>,
-        @InjectModel('User') private userModel: Model<User>,
-        private userService: UserService
-    ) {
+        private userService: UserService,
+        @InjectRepository(Todo) private todoRepository: Repository<Todo>
+    ) 
+    {
     }
 
     async create(todoDto: RequestAddToDoModelItem, email: string): Promise<Todo> {
         todoDto.userEmail = email;
-        const createdTodo = new this.todoModel(todoDto);
+        const createdTodo = await this.todoRepository.save(todoDto);
         await this.userService.appendTodo(email, createdTodo);
-        return await createdTodo.save();
+        return createdTodo;
     }
 
     async findAll(email: string): Promise<ResponseGetAllTodosModel> {
@@ -46,7 +45,9 @@ export class TodoService {
 
     async deleteTodo(todoID: any, email: string): Promise<any> {
 
-        const deletedTodo = await this.todoModel.find({ '_id': todoID, 'userEmail': email }).remove();
+        const deletedTodo = await this.todoRepository.find({ '_id': todoID, 'userEmail': email });
+        await this.todoRepository.delete(todoID);
+
         if (deletedTodo) {
 
             await this.userService.deleteTodo(email, todoID);
@@ -57,15 +58,24 @@ export class TodoService {
 
     async editTodo(todoID: any, todoDto: TodoDto, email: string): Promise<Todo> {
 
-        const editedTodo = await this.todoModel.findByIdAndUpdate(todoID, todoDto, { new: true });
-        await this.userService.updateTodo(email, editedTodo);
-        return editedTodo;
+        var oldTodo = await this.todoRepository.findOne(todoID);
+        delete oldTodo.description;
+        delete oldTodo.isCompleted;
+        delete oldTodo.image;
+
+        let updatedTodo = Object.assign(oldTodo, todoDto);
+
+        await this.todoRepository.update(todoID,{description: todoDto.description, isCompleted:todoDto.isCompleted,image:todoDto.image});
+
+        await this.userService.updateTodo(email, updatedTodo);
+        return updatedTodo;
     }
 
     async editTodoStatus(todoID: any, email: string): Promise<Todo> {
 
-        const targetTodo = await this.todoModel.findById(todoID);
+        const targetTodo = await this.todoRepository.findOne(todoID);
         targetTodo.isCompleted = (!targetTodo.isCompleted);
+        
         return await this.editTodo(todoID, targetTodo, email);
     }
 
@@ -112,8 +122,13 @@ export class TodoService {
         }
 
         await todos.forEach(td => td.userEmail = email);
-        var res = await this.todoModel.insertMany(todos);
-        await this.userService.appendTodos(email, res);
+        
+        todos.forEach(async element => {
+            var insertElement = Object.assign(new Todo(), element);
+            await this.todoRepository.save(insertElement);
+        });
+      
+        await this.userService.appendTodos(email, todos);
 
         return true;
     }

@@ -1,7 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 import { CoordinatesDto } from "src/shared/DTOs/coordinates.dto";
-import { ObjectID } from "mongodb";
 import { Action } from "./common";
+import { Entity, Column, ObjectIdColumn, ObjectID} from "typeorm";
 
 export class TodoDto {
     @IsNotEmpty()
@@ -49,4 +49,33 @@ export class AllLocalTodosModelItem extends ResponseTodoGetAllTodosModelItem {
 
 export class SyncNewTodosModel {
     todoList: Array<AllLocalTodosModelItem>;
+}
+
+
+@Entity({ name: "Todos" })
+export class Todo
+{
+    @ObjectIdColumn()
+    _id:ObjectID;
+    
+    @Column()
+    title: string;
+
+    @Column()
+    description: string;
+
+    @Column()
+    isCompleted: boolean;
+
+    @Column()
+    coordinates: CoordinatesDto;
+
+    @Column()
+    created_at: { type: Date };
+
+    @Column()
+    image : string = null;
+
+    @Column()
+    userEmail : string;
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { TabsPage } from '../components/tabs/tabs.page';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../to-do-list/to-do-list.module').then(m => m.ToDoListPageModule)
+              import('../components/to-do-list/to-do-list.module').then(m => m.ToDoListPageModule)
           }
         ]
       },
@@ -24,7 +24,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../profile/profile.module').then(m => m.ProfilePageModule)
+              import('../components/profile/profile.module').then(m => m.ProfilePageModule)
           }
         ]
       },

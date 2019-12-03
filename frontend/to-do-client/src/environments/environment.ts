@@ -6,7 +6,7 @@ export const environment = {
 
 //export const SERVER_URL = 'http://localhost:3003';
 
-export const SERVER_URL = 'https://7000445d.ngrok.io';//testing
+export const SERVER_URL = 'https://84a2d90b.ngrok.io';//testing
 
 const TODO_CONTROLLER_URL = '/todo/';
 const USER_CONTROLLER_URL = '/user/';

@@ -133,11 +133,16 @@ export class TodoService {
 
   async updateStatus(item: ResponseTodoGetAllTodosModelItem) {
 
+
+    console.log("item to update status", item); 
+
     if (!this.authService.isAuthenticated()) {
       console.log("auth error");
     }
     var todoToUpdateStatus = new EditTodoStatusLocalModel(item._id);
 
+    console.log("todoToUpdateStatus", todoToUpdateStatus); 
+    
     try {
       await this.http.post<ResponseUpdateStatusTodoModel>(CHANGE_TODO_STATUS_URL + item._id, null).toPromise();
 

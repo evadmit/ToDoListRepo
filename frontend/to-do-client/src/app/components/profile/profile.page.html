@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button  (click)="exitApp();">Log Out
+    <ion-icon slot="end" name="exit"></ion-icon>
+  </ion-button>
+
+
+  <ion-label position="floating" class="label">This page was created for SQLite test</ion-label>
+
+
+  <table>
+    <tr>
+      <td>title||</td>
+      <td>isSynced||</td>
+      <td>action||</td>
+      <td>isDisplayable||</td>
+    </tr>
+    <tr *ngFor="let item of items">
+      <td>{{item.title}}</td>
+      <td>{{item.isSynced}}</td>
+      <td>{{item.action}}</td>
+      <td>{{item.isDisplayable}}</td>
+    </tr>
+
+  </table>
+
+</ion-content>

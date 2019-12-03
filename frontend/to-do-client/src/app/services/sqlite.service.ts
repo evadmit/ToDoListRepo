@@ -148,20 +148,6 @@ export class SqliteService {
 
     var todosToSynk = new SyncNewTodosModel();
     todosToSynk.todoList = this.row_data;
-
-    //   this.databaseObj.executeSql("select * from Coordinates",[])
-    //   .then((coordinatesRes) => {
-    //     this.row_data =[];
-    //     if(coordinatesRes.rows.length>0){
-    //       for(var i = 0 ; i< coordinatesRes.rows.length; i++){
-    //         this.row_data.push(coordinatesRes.rows.item(i));
-    //       }
-    //     }});
-
-    // var coordinates = Array<Coordinates>();
-    // coordinates = this.row_data;
-
-    //todosToSynk.todoList.forEach(td => td.Coordinates.push( (coordinates.find(cd => cd.todo_id == td._id))));
     try {
       var res = await this.syncService.syncTodos(todosToSynk);
       if (res) {
@@ -254,5 +240,8 @@ export class SqliteService {
     this.databaseObj.executeSql("update  Todos set (isSynced) = 1 where isSynced = 0", []);
     this.databaseObj.executeSql("delete from  Todos  where isDisplayable = 0", []);
   }
-
+  cleanDatabase(){
+    this.databaseObj.executeSql("delete from  Coordinates ", []);
+    this.databaseObj.executeSql("delete from  Todos ", []);
+  }
 }

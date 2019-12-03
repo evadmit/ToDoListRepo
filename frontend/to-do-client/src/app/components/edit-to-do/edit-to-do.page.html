@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot = "start">
+      <ion-back-button></ion-back-button>
+      <div (click)="backButtonClick()" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;background-color: transparent;z-index: 1000;"></div>
+    </ion-buttons>
+    <ion-title>{{item.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="7" align-self-start>
+  <ion-card style="align-content: center"  >
+    <ion-card-header><ion-card-title>Edit</ion-card-title></ion-card-header>
+    <ion-card-content>
+        <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input [(ngModel)]="item.description"></ion-input>
+        </ion-item>
+        <ion-img role="button" class="image" [src]="selectedImage" *ngIf="selectedImage"></ion-img>
+
+        <ion-button id="btn-add-todo" size="large" expand="block" (click)="editToDo();">Save</ion-button>
+
+    </ion-card-content>
+  </ion-card>
+  </ion-col>
+  <ion-col  size="4" class="addphoto" [ngClass]="{'disableImg': !item.image}">
+    <ion-icon name="camera" (click)="openCamera()" ></ion-icon>  
+    <img src="{{item.image}}" alt="">
+    </ion-col>
+  </ion-row>
+  </ion-grid> 
+ 
+  <app-here-map id="dtailsMap" style="align-content: center; flex-wrap: wrap" appId="cm7VE6aD1ffBK0dztr7k" appCode="dtKwCb7c7b8OLs2d1GCU2Q" lat="22.5" lng="33.2"></app-here-map>  
+  
+</ion-content>

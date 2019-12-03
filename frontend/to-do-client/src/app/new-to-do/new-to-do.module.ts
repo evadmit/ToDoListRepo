@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewToDoPage } from './new-to-do.page';
 import { IonicStorageModule } from '@ionic/storage';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { HereMapModule } from '../here-map/here-map.module';
+import { NewToDoPage } from '../components/new-to-do/new-to-do.page';
+import { HereMapModule } from '../components/here-map/here-map.module';
 
 const routes: Routes = [
   {
