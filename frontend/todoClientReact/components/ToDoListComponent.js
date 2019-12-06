@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import { RefreshControl,Switch, Text, StyleSheet, View, FlatList, ScrollView, Button, TextInput, TouchableHighlight } from 'react-native';
+import {Switch, Text, StyleSheet, View, FlatList, ScrollView, Button, TextInput, TouchableHighlight } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import ActionButton from 'react-native-action-button';
 import { withNavigation } from 'react-navigation';
 import flatListData from '../data'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
 class FlatListItem extends Component {
 
-
-
-    
     constructor(props) {
         super(props);
+        this.showDetails = this.showDetails.bind(this);
+       
         this.state = {
             activeRowKey: null
         };
+    } 
+
+
+    showDetails(_id){
+        this.props.navigation.navigate('EditToDo');
     }
+
     render() {
         const swipeoutSettings = {
             autoClose: true,
@@ -46,21 +52,24 @@ class FlatListItem extends Component {
         };
 
         return (
-            <Swipeout {...swipeoutSettings}>
+            <Swipeout {...swipeoutSettings} >
                 <View style={{
                         flex: 1,
                         flexDirection: 'column'
                     }}>
+                    <TouchableHighlight  onPress={() => this.props.navigation.navigate('EditToDo')}>  
+                       
+  
                     <View style={{ 
                         flex: 1, 
                         flexDirection: 'row', 
                         backgroundColor: 'white',
-                        justifyContent:'space-between' }}>
+                        justifyContent:'space-between' }} >
                         <Text style={styles.item}>{this.props.item.foodDescription}</Text>
                         <Switch ></Switch>
                     </View>
-{/* 
-                    <View style={{ height: 1, backgroundColor: 'white' }}></View> */}
+                  </TouchableHighlight> 
+
                 </View>
             </Swipeout>
         )
@@ -91,13 +100,13 @@ class ToDoListComponent extends Component {
 
 
         return (
-            <View style={{flex:1}}>
+            <View style={{flex:1}} navigation={this.props.navigation}>
                 <ScrollView>
                 <FlatList
                     data={flatListData}
                     renderItem={({ item, index }) => {
                         return (
-                            <FlatListItem item={item} index={index} parentFlatList={this}>
+                            <FlatListItem  navigation={this.props.navigation} item={item} index={index} parentFlatList={this}>
 
                             </FlatListItem>
                         );

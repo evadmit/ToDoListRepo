@@ -14,19 +14,24 @@ class LoginComponent extends Component{
             <TextInput style={styles.input} placeholder="Email"  onChangeText={(value) => this.setState({ email: value })}></TextInput>
         
             <TextInput style={styles.input} placeholder="Password"  secureTextEntry
-                    onChangeText={(value) => this.setState({ password: value })} ></TextInput>
+                    //onChangeText={(value) => this.setState({ password: value })} 
+                    ></TextInput>
             <View style={{margin:10}} >
-            <Button title="Login" onPress={() => this.props.navigation.navigate('ToDoList')}></Button></View>
+            <Button title="Login" 
+            onPress={() => this.props.navigation.navigate('ToDoList')}
+            ></Button></View>
             <View style={{margin:10}}>
-            <Button title="Register"   onPress={() => this.props.navigation.navigate('Register')}></Button></View> 
+            <Button title="Register"   
+            onPress={() => this.props.navigation.navigate('Register')}
+            ></Button></View> 
           </View>
         );
       }
 
-      handleLogin = () =>{
-        this.props.login({ email: this.state.email, password: this.state.password });
+      // handleLogin = () =>{
+      //   this.props.login({ email: this.state.email, password: this.state.password });
         
-      }
+      // }
 }
 export default withNavigation(LoginComponent);
 
