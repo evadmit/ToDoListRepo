@@ -19,9 +19,7 @@ import { GoogleAuthStart, GoogleRedirect } from './google.middleware';
 export class AuthModule implements NestModule { 
 
   configure(consumer: MiddlewareConsumer) {
-    //Apply middleware for running passport on /api/auth/register route
-   // consumer.apply(RegisterMiddleware).forRoutes('auth/register');
-    //Apply middleware for google passport
+    
     consumer.apply(GoogleAuthStart).forRoutes({ method: RequestMethod.GET, path: '/auth/google' });
     consumer.apply(GoogleRedirect).forRoutes('/auth/redirect');
 }}

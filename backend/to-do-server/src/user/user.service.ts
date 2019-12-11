@@ -27,6 +27,7 @@ export class UserService {
 
 private async saveUser(newUSer:User): Promise<User>
 {
+
   const createdUser = await this.userRepository.save(newUSer);
 
   return createdUser;
@@ -129,11 +130,11 @@ private async saveUser(newUSer:User): Promise<User>
   async findByLogin(userDTO: LoginDTO) {
     const { email, password } = userDTO;
     const user = await this.userRepository
-      .findOne({where:{ email:email, password:password }});
+      .findOne({where:{ email:email}});
     if (!user) {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
-
+console.log(password,"   ", user.password)
     if (await bcrypt.compare(password, user.password)) {
       return user;
     } else {

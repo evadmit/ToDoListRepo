@@ -1,8 +1,9 @@
 import { IsEmail, IsNotEmpty, Allow } from "class-validator";
-import { Entity, ObjectIdColumn, Column } from "typeorm";
+import { Entity, ObjectIdColumn, Column, BeforeInsert } from "typeorm";
 import { Facebook } from "../interfaces/user.interface";
 import { Todo } from "src/todo/models/todo.dto";
 
+import * as bcrypt from 'bcrypt';
 export class UserDto {
     @IsNotEmpty()
     readonly name: string;
@@ -59,4 +60,10 @@ export class User
     
     @Column()
     facebook: Facebook;
+
+    @BeforeInsert()
+    async hashPassword() {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+
 }
