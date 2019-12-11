@@ -2,36 +2,38 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Button,TextInput  } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
+import Input from './commons/Input'
 
 class LoginComponent extends Component{
    state = { email: '', password: '' }
 
+
     render() {
         return (
-          <View style={{flex: 1, 
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View  style={{flex: 1, 
             flexDirection: 'column',
             justifyContent: 'center',}}>
-            <TextInput style={styles.input} placeholder="Email"  onChangeText={(value) => this.setState({ email: value })}></TextInput>
+            <Input placeholder="Email"  onChangeText={(value) => this.setState({ email: value })}></Input>
         
-            <TextInput style={styles.input} placeholder="Password"  secureTextEntry
-                    //onChangeText={(value) => this.setState({ password: value })} 
-                    ></TextInput>
+            <Input placeholder="Password"  secureTextEntry
+                   onChangeText={(value) => this.setState({ password: value })} 
+                    ></Input>
             <View style={{margin:10}} >
+         
             <Button title="Login" 
-            onPress={() => this.props.navigation.navigate('ToDoList')}
+              onPress={() => this.props.login({ 
+                email: this.state.email, 
+                password: this.state.password })}
             ></Button></View>
             <View style={{margin:10}}>
             <Button title="Register"   
             onPress={() => this.props.navigation.navigate('Register')}
             ></Button></View> 
-          </View>
+          </View></View>
         );
       }
 
-      // handleLogin = () =>{
-      //   this.props.login({ email: this.state.email, password: this.state.password });
-        
-      // }
 }
 export default withNavigation(LoginComponent);
 

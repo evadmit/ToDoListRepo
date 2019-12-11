@@ -1,5 +1,9 @@
-// export default {
-//     login: {
-//         userInfo: {}
-//     }
-// }
+export default {
+    login: {
+        userInfo: {}
+    },
+    register: {
+        userInfo: {}
+    },
+
+}

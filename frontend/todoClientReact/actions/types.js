@@ -1,3 +1,22 @@
 
 export const LOGIN = 'LOGIN'
+export const REGISTER = 'REGISTER'
 export const SET_USER_INFO = 'SET_USET_INFO'
+export const SERVER_PENDING = 'SERVER_PENDING'
+export const SERVER_ERROR = 'SERVER_ERROR'
+export const SERVER_SUCCESS = 'SERVER_SUCCESS'
+
+
+const TODOS = {
+    LOAD: 'TODOS_LOAD',
+    LOAD_SUCCESS: 'TODOS_LOAD_SUCCESS',
+    LOAD_FAIL: 'TODOS_LOAD_FAIL',
+};
+
+const STATS = {
+    LOAD: 'STATS_LOAD',
+    LOAD_SUCCESS: 'STATS_LOAD_SUCCESS',
+    LOAD_FAIL: 'STATS_LOAD_FAIL',
+};
+
+export { TODOS, STATS };

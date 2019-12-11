@@ -1,12 +1,12 @@
 import { put, call, fork, takeLatest } from 'redux-saga/effects';
 import * as types from '../actions/types';
-import * as loginApis from '../services/loginApis';
-import { setUserInfo } from '../actions/loginActions';
+import * as registerApis from '../services/registerApis';
+import { setUserInfo } from '../actions/registerActions';
 import { setToken } from '../services/api';
 
-export function* login(action) {
+export function* register(action) {
     try {
-        const data = yield call(loginApis.login, action.params)
+        const data = yield call(registerApis.register, action.params)
         action.onSuccess(data.data)
         setToken(data.data.token || '');
         yield put(setUserInfo(data.data.user))
@@ -15,6 +15,6 @@ export function* login(action) {
     }
 }
 
-export function* watchLogin() {
-    yield takeLatest(types.LOGIN, login)
+export function* watchRegister() {
+    yield takeLatest(types.REGISTER, register)
 }
