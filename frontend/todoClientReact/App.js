@@ -1,9 +1,8 @@
 import * as React from 'react';
-
 import LoginContainer from './containers/login/LoginContainer';
 import RegisterContainer from './containers/register/RegisterContainer';
 
-import { Button, View, Text } from 'react-native';
+import { Button, View, Dimensions  } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import creatSagaMiddleware from 'redux-saga';
@@ -66,6 +65,7 @@ class EditToDoScreen extends React.Component {
 
 class NewToDoScreen extends React.Component {
   render() {
+  
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <NewToDoComponent/>

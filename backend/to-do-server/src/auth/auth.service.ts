@@ -28,7 +28,7 @@ export class AuthService {
 
     return {
       token: await this.signPayload({ email: user.email }),
-      user,
+      user,     
     };
   }
   async upsertGoogleUser(data: User) {

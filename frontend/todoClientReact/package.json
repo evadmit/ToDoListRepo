@@ -20,6 +20,7 @@
     "react-native-action-button": "^2.8.5",
     "react-native-axios": "^0.17.1",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-maps": "^0.26.1",
     "react-native-swipeout": "^2.3.6",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",

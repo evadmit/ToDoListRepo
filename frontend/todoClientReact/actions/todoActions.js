@@ -4,6 +4,11 @@ const loadTodos = () => ({
     type: TODOS.LOAD,
 });
 
+const addTodo = (newTodo)=>({
+type: TODOS.ADD,
+newTodo
+})
+
 const setTodos = todos => ({
     type: TODOS.LOAD_SUCCESS,
     todos,
@@ -18,6 +23,7 @@ const setError = error => ({
 
 export {
     loadTodos,
+    addTodo,
     setTodos,
     setError,
 };
