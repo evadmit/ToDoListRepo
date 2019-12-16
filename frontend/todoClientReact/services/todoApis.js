@@ -1,22 +1,30 @@
 export {GET_TODOS_URL} from './config';
+import { api } from './api';
 
-
-const getTodos = async page => {
-    const response = await fetch(GET_TODOS_URL);
-    const data = await response.json();
+const getTodos = async () => {
+    const response = await api.get('/todo/todos');
+   // const data = await response.json();
+    console.log("getTodos ", response);
     if (response.status >= 400) {
-        throw new Error(data.errors);
+      //  throw new Error(data.errors);
     }
-    return data;
+    return response;
 };
 
-// const fetchImageStats = async id => {
-//     const response = await fetch(`${URL}/${id}/statistics${KEY}`);
-//     const data = await response.json();
-//     if (response.status >= 400) {
-//         throw new Error(data.errors);
-//     }
-//     return data;
-// };
+const addTodo = async (params) => {
 
-export { getTodos};
+    
+    try{
+        var apiResult =await  api.post('/todo/add', params); 
+      
+        
+    }
+   catch(er){
+       console.log("eror adding" , er)
+   }
+    
+    return apiResult;
+}
+
+
+export { getTodos, addTodo};

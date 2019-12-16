@@ -6,4 +6,12 @@ export default {
         userInfo: {}
     },
 
+    addTodo:{
+        newToDo:{}
+    },
+
+    loadTodos:{
+        todoList:{}
+    }
+
 }

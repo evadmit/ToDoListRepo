@@ -16,6 +16,7 @@ export class TodoController {
 
   @Get('todos')
   async findAll(@UserDecorator() user): Promise<ResponseGetAllTodosModel> {
+    console.log("response from client! load todos");
     const todos = await this.toDoService.findAll((user as User).email);
     return todos;
   }

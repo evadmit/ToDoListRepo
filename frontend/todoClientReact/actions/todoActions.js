@@ -1,29 +1,24 @@
-import { TODOS, STATS } from './types';
+import { TODOS } from './types';
 
-const loadTodos = () => ({
+export const loadTodos = (onSuccess, onError) => ({
     type: TODOS.LOAD,
+    onSuccess,
+    onError
 });
 
-const addTodo = (newTodo)=>({
+export const addTodo = (params, onSuccess, onError)=>({
 type: TODOS.ADD,
-newTodo
+params,
+onSuccess,
+onError
 })
 
-const setTodos = todos => ({
+export const setTodos = todos => ({
     type: TODOS.LOAD_SUCCESS,
     todos,
 });
 
-const setError = error => ({
+export const setError = error => ({
     type: TODOS.LOAD_FAIL,
     error,
 });
-
-
-
-export {
-    loadTodos,
-    addTodo,
-    setTodos,
-    setError,
-};

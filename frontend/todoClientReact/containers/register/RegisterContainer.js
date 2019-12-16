@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import RegisterComponent from '../../components/RegisterComponent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

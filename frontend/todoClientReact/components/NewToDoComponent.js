@@ -9,27 +9,32 @@ var dotImage = require('../recources/map_marker.png')
 
 class NewToDoComponent extends Component{
 
-  state = { title:'', description: '', isCompleated: 0, image:'', userEmail:'', coordinates:{latitude:'', longitude:''} }
+ state = { 
+  title:'', 
+  description: '',
+  isCompleated: 0, 
+  image:'', 
+  userEmail:'', 
+  coordinates:{latitude:'', longitude:''},
+  marker:  {
+    coordinate:{
+      latitude: 45.5209087,
+      longitude: -122.6705107,
+  },}
+}
+ 
  constructor(props){
    super(props);
-   this.state = {
-    marker:  {
-      coordinate:{
-        latitude: 45.5209087,
-        longitude: -122.6705107,
-    }
-    }
-  }
   this.handlePress = this.handlePress.bind(this);
  }
 
  handlePress(e) {
   this.setState({
+    
     marker: 
       {
         coordinate: e.nativeEvent.coordinate
       }
-    
   })
 }
 render(){ 
@@ -45,13 +50,13 @@ render(){
 <Input  placeholder="Description" onChangeText={(value) => this.setState({ description: value })}></Input>
 
     <Button title="Add"
-      onPress={() => this.props.newToDo({ 
+      onPress={() => this.props.addTodo({ 
         title: this.state.title,
         description: this.state.description, 
         isCompleated: this.state.isCompleated, 
         image: this.state.image, 
         userEmail: this.state.userEmail, 
-        coordinates: this.state.coordinates })}
+        coordinates: this.state.marker.coordinate })}
     ></Button>    
     <MapView showsUserLocation={true}
           followUserLocation={true} 
@@ -66,7 +71,7 @@ render(){
       >
        {/* {this.state.marker.map((marker) => {
         return ( */}
-          <Marker  coordinate={this.state.marker.coordinate} draggable = {true}>
+          <Marker onDragEnd={this.handlePress} coordinate={this.state.marker.coordinate} draggable = {true}>
             <View style={styles.marker}>
             <Image source={dotImage} style={{height: 35, width:35 }} />
             </View>

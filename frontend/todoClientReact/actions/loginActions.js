@@ -3,7 +3,7 @@ export const login = (params, onSuccess, onError) => ({
     type: LOGIN,
     params,
     onSuccess,
-    onError
+    onError 
 })
 export const setUserInfo = (data) => ({
     type: SET_USER_INFO,

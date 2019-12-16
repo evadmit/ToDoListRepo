@@ -6,7 +6,7 @@ import Input from './commons/Input';
 
 class RegisterComponent extends Component{
   state = { name:'', email: '', password: '', confirmPassword:'' }
-
+ 
     render(){
         return(
             <View style={{flex: 1, 

@@ -4,4 +4,4 @@ export const register = (params, onSuccess, onError) => ({
     params,
     onSuccess,
     onError
-})
+}) 

@@ -6,14 +6,68 @@ import { withNavigation } from 'react-navigation';
 import flatListData from '../data'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+class ToDoListComponent extends Component {
+    onAddPress = () => {
+        this.props.navigation.navigation('NewToDo')
+    };
 
+
+    constructor(props) {
+        super(props);
+  try {
+       var todos = props.loadTodos();
+       console.log("todos: ", todos);
+  } catch (error) {
+    console.log("loadTodos error : ", error);
+  }
+      
+        this.state = ({
+            deletedRowKey: null,
+        });
+    }
+
+    refreshFlatList = (deletedKey) => {
+        this.setState((prevState) => {
+            return {
+                deletedRowKey: deletedKey
+            };
+        });
+    }
+    render() {
+
+
+        return (
+            <View style={{flex:1}} navigation={this.props.navigation}>
+                <ScrollView>
+                <FlatList
+                    data={flatListData}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <FlatListItem  navigation={this.props.navigation} item={item} index={index} parentFlatList={this}>
+
+                            </FlatListItem>
+                        );
+                    }
+                    }>
+
+
+                </FlatList>
+                </ScrollView>
+                <TouchableHighlight style={styles.fab} onPress={() => this.props.navigation.navigate('NewToDo')}>
+                    <Text style={styles.text}>+</Text>
+                </TouchableHighlight >
+            </View>
+        )
+    }
+
+
+}
 
 class FlatListItem extends Component {
 
     constructor(props) {
         super(props);
         this.showDetails = this.showDetails.bind(this);
-       
         this.state = {
             activeRowKey: null
         };
@@ -76,55 +130,7 @@ class FlatListItem extends Component {
     }
 }
 
-class ToDoListComponent extends Component {
-    onAddPress = () => {
-        this.props.navigation.navigation('NewToDo')
-    };
 
-
-    constructor(props) {
-        super(props);
-        this.state = ({
-            deletedRowKey: null,
-        });
-    }
-
-    refreshFlatList = (deletedKey) => {
-        this.setState((prevState) => {
-            return {
-                deletedRowKey: deletedKey
-            };
-        });
-    }
-    render() {
-
-
-        return (
-            <View style={{flex:1}} navigation={this.props.navigation}>
-                <ScrollView>
-                <FlatList
-                    data={flatListData}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <FlatListItem  navigation={this.props.navigation} item={item} index={index} parentFlatList={this}>
-
-                            </FlatListItem>
-                        );
-                    }
-                    }>
-
-
-                </FlatList>
-                </ScrollView>
-                <TouchableHighlight style={styles.fab} onPress={() => this.props.navigation.navigate('NewToDo')}>
-                    <Text style={styles.text}>+</Text>
-                </TouchableHighlight >
-            </View>
-        )
-    }
-
-
-}
 export default withNavigation(ToDoListComponent);
 const styles = StyleSheet.create({
 
