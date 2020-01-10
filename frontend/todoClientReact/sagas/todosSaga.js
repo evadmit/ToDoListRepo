@@ -4,13 +4,14 @@ import * as todoApis from '../services/todoApis'
 import * as todoActions from '../actions/todoActions'
 
 export function* loadTodos(action){
-try {
+try {console.log("function* loadTodos", saga);
     const todos = yield call(todoApis.getTodos);
-    console.log("function* loadTodos", todos);
+    
     action.onSuccess(todos.data);
    // yield put(todoActions.setTodos(todos)); //save local
 
 } catch (error) {
+    console.log("function* loadTodos", error);
     yield put(todoActions.setError(error.toString()));
 }
 }

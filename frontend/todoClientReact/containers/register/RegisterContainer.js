@@ -40,13 +40,6 @@ class RegisterContainer extends Component {
         if(params.password != params.confirmPassword){
             alert("passwords doesn't match!")
             }
-        // if (emailValidation.isError) {
-        //     alert(emailValidation.messageError)
-        // } else if (passwordValidation.isError) {
-        //     alert(emailValidation.messageError)
-        // } else {
-        //     this.props.actions.login.login(params, this.onSuccess(), this.onError())
-        // }
         this.props.actions.register.register({  name: params.name, email: params.email, password: params.password }, this.onSuccess, this.onError)
     }
     render() {

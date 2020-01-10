@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Button  } from 'react-native';
-
+import { getToken } from './../utils/storage';
 import { withNavigation } from 'react-navigation';
 import Input from './commons/Input'
-
 class LoginComponent extends Component{
    state = { email: '', password: '' }
 
+
+   constructor(props) {
+    super(props);
+ const token = getToken();
+ if(token!== null){
+ // props.navigation.navigate('ToDoList')
+ }
+}
 
     render() {
         return (
@@ -25,7 +32,9 @@ class LoginComponent extends Component{
               onPress={() => this.props.login({ 
                 email: this.state.email, 
                 password: this.state.password })}
-            ></Button></View>
+            ></Button>
+          
+            </View>
             <View style={{margin:10}}>
             <Button title="Register"   
             onPress={() => this.props.navigation.navigate('Register')}

@@ -1,21 +1,27 @@
-export {GET_TODOS_URL} from './config';
+import * as Routes from './config';
 import { api } from './api';
 
-const getTodos = async () => {
-    const response = await api.get('/todo/todos');
+export const getTodos = () => {
+    try {
+        var response = api.get(Routes.GET_TODOS_URL);
+           
    // const data = await response.json();
     console.log("getTodos ", response);
     if (response.status >= 400) {
       //  throw new Error(data.errors);
     }
     return response;
+    } catch (error) {
+        console.log("getTodos error ", error);
+    }
+ 
 };
 
-const addTodo = async (params) => {
+export const addTodo =  (params) => {
 
     
     try{
-        var apiResult =await  api.post('/todo/add', params); 
+        var apiResult =  api.post(Routes.addTodo, params); 
       
         
     }
@@ -26,5 +32,3 @@ const addTodo = async (params) => {
     return apiResult;
 }
 
-
-export { getTodos, addTodo};

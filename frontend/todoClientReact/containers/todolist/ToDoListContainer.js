@@ -20,19 +20,8 @@ class ToDoListContainer extends Component {
             ], 
         });
         navigation.dispatch(resetAction);
-            //sync
-            // saveToken(data.token).then((isSuccess) => {
-            //     if (isSuccess) {
-            //         const { navigation } = this.props;
-            //         const resetAction = StackActions.reset({
-            //             index: 0,
-            //             actions: [
-            //                 NavigationActions.navigate({ routeName: 'ToDoList' }),
-            //             ],
-            //         });
-            //         navigation.dispatch(resetAction);
-            //     }
-            // });
+          
+            return data;
         }
    
     onError = (error) => {
@@ -41,10 +30,12 @@ class ToDoListContainer extends Component {
 
     }
 
-    loadTodos = () =>{
+ loadTodos = () =>{
 
         this.setState({isLoading : true})
-      return  this.props.actions.loadTodos(this.onSuccess, this.onError);
+        var res =this.props.actions.loadTodos(this.onSuccess, this.onError);
+        console.log("loadTodos in container result", res);
+     // return res;
     }
     render() {
         return (
@@ -55,7 +46,9 @@ class ToDoListContainer extends Component {
     }
 }
     const mapStateToProps = (state) => {
-        return {}
+        return {
+           // todos: state.toDoReducers
+        }
     }
     const mapDispatchToProps = (dispatch) => {
         return {

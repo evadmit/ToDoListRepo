@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import {Switch, Text, StyleSheet, View, FlatList, ScrollView, Button, TextInput, TouchableHighlight } from 'react-native';
+import {Switch, Text, StyleSheet, View, FlatList, ScrollView, Button, TouchableHighlight } from 'react-native';
 import Swipeout from 'react-native-swipeout';
-import ActionButton from 'react-native-action-button';
 import { withNavigation } from 'react-navigation';
 import flatListData from '../data'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 class ToDoListComponent extends Component {
+
     onAddPress = () => {
         this.props.navigation.navigation('NewToDo')
     };
-
+    
 
     constructor(props) {
         super(props);
@@ -38,7 +38,10 @@ class ToDoListComponent extends Component {
 
         return (
             <View style={{flex:1}} navigation={this.props.navigation}>
+
                 <ScrollView>
+                <Button title="load"   onPress={() => {console.log("pressed"); this.props.loadTodos();}}></Button>
+      
                 <FlatList
                     data={flatListData}
                     renderItem={({ item, index }) => {
