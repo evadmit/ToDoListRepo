@@ -6,7 +6,6 @@ export const getTodos = () => {
         var response = api.get(Routes.GET_TODOS_URL);
            
    // const data = await response.json();
-    console.log("getTodos ", response);
     if (response.status >= 400) {
       //  throw new Error(data.errors);
     }
@@ -18,12 +17,9 @@ export const getTodos = () => {
 };
 
 export const addTodo =  (params) => {
-
-    
+  
     try{
-        var apiResult =  api.post(Routes.addTodo, params); 
-      
-        
+        var apiResult =  api.post(Routes.ADD_TODO_URL, params);  
     }
    catch(er){
        console.log("eror adding" , er)

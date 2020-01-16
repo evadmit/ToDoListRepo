@@ -42,7 +42,6 @@ class LoginContainer extends Component {
     }
 
     fbLogin = (params) => {
-        console.log("fbLogin", params)
         this.setState({ isLoading: true })
         this.props.actions.login.fbLogin(params, this.onSuccess, this.onError)
     }

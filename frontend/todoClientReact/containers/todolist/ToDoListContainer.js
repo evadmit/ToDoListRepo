@@ -8,10 +8,12 @@ import * as todoActions from '../../actions/todoActions';
 
 class ToDoListContainer extends Component {
 
-    state = { isLoading: false };
+    state = { isLoading: false , todos:{}};
 
     onSuccess = (data) => {
+        console.log("data on success", data)
         this.setState({ isLoading: false });
+        this.setState({ todos: data });
         const { navigation } = this.props;
         const resetAction = StackActions.reset({          
             index: 0,
@@ -33,9 +35,9 @@ class ToDoListContainer extends Component {
  loadTodos = () =>{
 
         this.setState({isLoading : true})
-        var res =this.props.actions.loadTodos(this.onSuccess, this.onError);
+        var res =this.props.actions.loadTodos.loadTodos(this.onSuccess, this.onError);
         console.log("loadTodos in container result", res);
-     // return res;
+     return res;
     }
     render() {
         return (
@@ -47,13 +49,12 @@ class ToDoListContainer extends Component {
 }
     const mapStateToProps = (state) => {
         return {
-           // todos: state.toDoReducers
         }
     }
     const mapDispatchToProps = (dispatch) => {
         return {
             actions: {
-                loadTodos: bindActionCreators(todoActions.loadTodos, dispatch)
+                loadTodos: bindActionCreators(todoActions, dispatch)
             }
         }
     }

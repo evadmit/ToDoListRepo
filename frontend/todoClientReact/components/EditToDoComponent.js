@@ -48,8 +48,7 @@ class EditToDoComponent extends Component{
       },
     };
     ImagePicker.launchImageLibrary(options, (response) => {
-      console.log('Response = ', response);
-
+    
       if (response.didCancel) {
       } else if (response.error) {
       } else if (response.customButton) {
@@ -104,16 +103,10 @@ class EditToDoComponent extends Component{
       },
     };
     ImagePicker.launchCamera(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
+     
+      if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
+      }  else {
         const source = { uri: response.uri };
         console.log('response', JSON.stringify(response));
         this.setState({

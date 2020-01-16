@@ -14,13 +14,7 @@ class ToDoListComponent extends Component {
 
     constructor(props) {
         super(props);
-  try {
-       var todos = props.loadTodos();
-       console.log("todos: ", todos);
-  } catch (error) {
-    console.log("loadTodos error : ", error);
-  }
-      
+        
         this.state = ({
             deletedRowKey: null,
         });
@@ -40,7 +34,7 @@ class ToDoListComponent extends Component {
             <View style={{flex:1}} navigation={this.props.navigation}>
 
                 <ScrollView>
-                <Button title="load"   onPress={() => {console.log("pressed"); this.props.loadTodos();}}></Button>
+                <Button title="load"   onPress={() => {const res = this.props.loadTodos(); console.log("loaded by pressing" , res)}}></Button>
       
                 <FlatList
                     data={flatListData}

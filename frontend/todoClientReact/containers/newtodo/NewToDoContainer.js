@@ -12,7 +12,6 @@ class NewToDoContainer extends Component {
     
     onSuccess = (newtodo) => {
         //save local
-        console.log("success adding! ", newtodo)
         this.setState({ isLoading: false });
         const { navigation } = this.props;
         const resetAction = StackActions.reset({
@@ -33,7 +32,7 @@ class NewToDoContainer extends Component {
     addTodo = (params) => {
         this.setState({ isLoading: true })
     
-        this.props.actions.addTodo({  title: params.title, description: params.description, isCompleated: params.isCompleated, image: params.image , userEmail: params.userEmail, coordinates: params.coordinates}, this.onSuccess, this.onError);
+        this.props.actions.addTodo.addTodo({ title: params.title, description: params.description, isCompleated: params.isCompleated, image: params.image , userEmail: params.userEmail, coordinates: params.coordinates}, this.onSuccess, this.onError);
 
     }
     render() {
@@ -50,7 +49,7 @@ class NewToDoContainer extends Component {
     const mapDispatchToProps = (dispatch) => {
         return {
             actions: {
-                addTodo: bindActionCreators(todoActions.addTodo, dispatch)
+                addTodo: bindActionCreators(todoActions, dispatch)
             }
         }
     }

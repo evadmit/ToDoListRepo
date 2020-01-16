@@ -19,7 +19,7 @@ class LoginComponent extends Component{
     super(props);
  const token = getToken();
  if(token!== null){
- // props.navigation.navigate('ToDoList')
+ props.navigation.navigate('ToDoList')
  }
 }
 
@@ -85,7 +85,6 @@ class LoginComponent extends Component{
           } else {
         const  info = {name: result.name.toString(), password: result.id.toString(), email: result.email.toString() };
         this.setState({userInfo: info});
-        console.log(this.state);
         this.props.fbLogin(this.state.userInfo);
           }
 }

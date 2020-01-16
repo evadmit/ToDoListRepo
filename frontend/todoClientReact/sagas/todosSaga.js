@@ -1,13 +1,14 @@
-import { put, call, takeLatest, fork } from 'redux-saga/effects';
+import { put, call, takeEvery, fork, all } from 'redux-saga/effects';
 import * as types from '../actions/types';
 import * as todoApis from '../services/todoApis'
 import * as todoActions from '../actions/todoActions'
 
 export function* loadTodos(action){
-try {console.log("function* loadTodos", saga);
+try {
     const todos = yield call(todoApis.getTodos);
-    
-    action.onSuccess(todos.data);
+    console.log("function* loadTodos",JSON.stringify( todos.data.todoList));
+    action.onSuccess(todos.data.todoList);
+    return todos.data.todoList
    // yield put(todoActions.setTodos(todos)); //save local
 
 } catch (error) {
@@ -23,14 +24,14 @@ export function* addTodo(action){
         action.onSuccess(todo.data);
       //  yield put(todoActions.addTodo(todo)); //save local
     } catch (error) {
+        console.log("function* addTodo", error);
         yield put(todoActions.setError(error.toString()));
     }
 }
 
-export function* watchAddTodo() {
-    yield fork(takeLatest,types.TODOS.ADD, addTodo)
-}
- 
-export function* watchloadTodos() {
-    yield fork(takeLatest,types.TODOS.LOAD, loadTodos)
+export function* todoSagas(){
+    yield all([
+        takeEvery(types.TODOS.ADD, addTodo),
+        takeEvery(types.TODOS.LOAD, loadTodos),
+      ]);
 }

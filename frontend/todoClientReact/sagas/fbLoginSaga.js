@@ -6,7 +6,6 @@ import { setToken } from '../services/api';
 
 export function* fbLogin(action) {
     try {
-        console.log("fbLogin")
         const data = yield call(loginApis.facebookLogin, action.params)
         action.onSuccess(data.data)
         setToken(data.data.token || '');
@@ -17,6 +16,5 @@ export function* fbLogin(action) {
 }
 
 export function* watchFbLogin() {
-    console.log("watchFbLogin")
     yield takeLatest(types.FB_LOGIN, fbLogin)
 }
