@@ -1,5 +1,6 @@
 
 export const LOGIN = 'LOGIN'
+export const FB_LOGIN = 'FB_LOGIN'
 export const REGISTER = 'REGISTER'
 export const SET_USER_INFO = 'SET_USET_INFO'
 export const SERVER_PENDING = 'SERVER_PENDING'

@@ -14,5 +14,5 @@ export const googleLogin = (params) => {
 
 export const facebookLogin = (params) => {
     console.log("facebookLogin params", params);
-    return api.post(Routes.FACEBOOK_AUTH_URL, params);
+    return api.post(Routes.OAUTH_AUTH_URL, params);
 }

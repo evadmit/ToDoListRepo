@@ -2,6 +2,9 @@ export default {
     login: {
         userInfo: {}
     },
+    fbLogin: {
+        userInfo: {}
+    },
     register: {
         userInfo: {}
     },

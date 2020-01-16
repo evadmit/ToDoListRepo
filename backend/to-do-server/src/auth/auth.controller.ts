@@ -60,4 +60,17 @@ export class AuthController {
     console.log(token);
     return { user, token };
   }
+
+  @Post('login-oauth')
+  async socialLogin(@Body() userDTO: RegisterDTO)
+  {
+    console.log("oauth login");
+    const user = await this.userService.findOrCreateGoogleProfile(userDTO);
+    const payload: Payload = {
+      email: user.email
+    };
+    const token = await this.authService.signPayload(payload);
+    console.log(token);
+    return { user, token };
+  }
 }

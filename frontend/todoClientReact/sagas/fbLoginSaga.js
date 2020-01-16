@@ -4,9 +4,10 @@ import * as loginApis from '../services/loginApis';
 import { setUserInfo } from '../actions/loginActions';
 import { setToken } from '../services/api';
 
-export function* login(action) {
+export function* fbLogin(action) {
     try {
-        const data = yield call(loginApis.login, action.params)
+        console.log("fbLogin")
+        const data = yield call(loginApis.facebookLogin, action.params)
         action.onSuccess(data.data)
         setToken(data.data.token || '');
         yield put(setUserInfo(data.data.user))
@@ -15,6 +16,7 @@ export function* login(action) {
     }
 }
 
-export function* watchLogin() {
-    yield takeLatest(types.LOGIN, login)
+export function* watchFbLogin() {
+    console.log("watchFbLogin")
+    yield takeLatest(types.FB_LOGIN, fbLogin)
 }

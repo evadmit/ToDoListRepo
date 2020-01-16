@@ -5,7 +5,7 @@ export const environment = {
   
   //export const SERVER_URL = 'http://localhost:3003';
   
-  export const SERVER_URL = 'https://b0b63fe6.ngrok.io';//testing
+  export const SERVER_URL = ' https://543aa23f.ngrok.io';//testing
   export const USER_TOKEN = 'USER_TOKEN';
   const TODO_CONTROLLER_URL = '/todo/';
   const AUTH_CONTROLLER_URL = '/auth/';
@@ -21,6 +21,7 @@ export const environment = {
   export const REGISTER_AUTH_URL = AUTH_CONTROLLER_URL+'register/';
   export const LOGIN_AUTH_URL = AUTH_CONTROLLER_URL+'login/';
   export const FACEBOOK_AUTH_URL = AUTH_CONTROLLER_URL+'login-facebook/';
+  export const OAUTH_AUTH_URL = AUTH_CONTROLLER_URL+'login-oauth/';
   export const GOOGLE_AUTH_URL = AUTH_CONTROLLER_URL+'google/';
   export const hereMapApiKey = "GLT2b_0SS2cfSgN6PTxIVq2HJrUpmK0qmrsjTrCgtDc";
   

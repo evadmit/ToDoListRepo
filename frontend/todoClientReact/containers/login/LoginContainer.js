@@ -32,24 +32,26 @@ class LoginContainer extends Component {
         console.log(error)
 
     }
+
     login = (params) => {
         this.setState({ isLoading: true })
         const emailValidation = validate('email', params.email.trim())
         const passwordValidation = validate('password', params.password.trim())
 
-        // if (emailValidation.isError) {
-        //     alert(emailValidation.messageError)
-        // } else if (passwordValidation.isError) {
-        //     alert(emailValidation.messageError)
-        // } else {
-        //     this.props.actions.login.login(params, this.onSuccess(), this.onError())
-        // }
         this.props.actions.login.login({ email: params.email, password: params.password }, this.onSuccess, this.onError)
     }
+
+    fbLogin = (params) => {
+        console.log("fbLogin", params)
+        this.setState({ isLoading: true })
+        this.props.actions.login.fbLogin(params, this.onSuccess, this.onError)
+    }
+
     render() {
         return (
             <LoginComponent
                 login={this.login}
+                fbLogin={this.fbLogin}
             />
         );
     }
