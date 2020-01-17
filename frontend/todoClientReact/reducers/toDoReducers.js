@@ -16,7 +16,11 @@ const toDoListReducer = (state = appState.loadTodos, action) => {
 
     switch (action.type) {
         case types.TODOS.LOAD:
-            return { ...state, ...{ todoList: action.data } }
+            return { ...state, loading: true };
+            
+        case types.TODOS.LOAD_SUCCESS:
+            
+            return { ...state, todos: action.todos, loading: false  }
         default:
             return state
     }
