@@ -4,27 +4,35 @@ import { api } from './api';
 export const getTodos = () => {
     try {
         var response = api.get(Routes.GET_TODOS_URL);
-           
-   // const data = await response.json();
-    if (response.status >= 400) {
-      //  throw new Error(data.errors);
-    }
-    return response;
+
+        return response;
     } catch (error) {
         console.log("getTodos error ", error);
     }
- 
+
 };
 
-export const addTodo =  (params) => {
-  
-    try{
-        var apiResult =  api.post(Routes.ADD_TODO_URL, params);  
+export const addTodo = (params) => {
+
+    try {
+        var apiResult = api.post(Routes.ADD_TODO_URL, params);
     }
-   catch(er){
-       console.log("eror adding" , er)
-   }
-    
+    catch (er) {
+        console.log("eror adding", er)
+    }
+
+    return apiResult;
+}
+
+export const deleteTodo = (params) => {
+
+    try {
+        var apiResult = api.delete(Routes.DELETE_TODO_URL + params);
+    }
+    catch (er) {
+        console.log("eror deleting", er)
+    }
+
     return apiResult;
 }
 

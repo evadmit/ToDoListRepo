@@ -13,6 +13,12 @@ onSuccess,
 onError
 })
 
+export const deleteTodo = (params, onSuccess, onError)=>({
+    type: TODOS.DELETE,
+    params,
+    onSuccess,
+    onError
+    })
 export const setTodos = todos => ({
     type: TODOS.LOAD_SUCCESS,
     todos,

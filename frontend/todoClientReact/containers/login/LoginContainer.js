@@ -6,7 +6,7 @@ import * as loginActions from '../../actions/loginActions';
 import { validate } from '../../utils/validation';
 import { saveToken } from '../../utils/storage';
 import { NavigationActions, StackActions } from 'react-navigation';
- 
+
 class LoginContainer extends Component {
 
     state = { isLoading: false }

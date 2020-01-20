@@ -31,6 +31,7 @@ export class TodoController {
 
   @Delete('delete')
   async deleteTodo(@Query('todoID', new ValidateObjectId()) todoID, @UserDecorator() user) {
+    console.log("response to delete", todoID)
     const deletedTodoItem = await this.toDoService.deleteTodo(todoID, (user as User).email);
     console.log("Item deleted ", deletedTodoItem);
     if (!deletedTodoItem) throw new NotFoundException('Item doesn`t exist');

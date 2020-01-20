@@ -12,7 +12,7 @@ const loginReducer = (state = appState.login, action) => {
 }
 
 const fbLoginReducer = (state = appState.fbLogin, action) => {
-  
+
     switch (action.type) {
         case types.SET_USER_INFO:
             return { ...state, ...{ userInfo: action.data } }

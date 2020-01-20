@@ -35,6 +35,7 @@ export const clearToken = async () => saveToken('');
 export const getToken = async () => {
   try {
     const value = await AsyncStorage.getItem(`@${USER_TOKEN}:key`);
+
     if (value !== null) {
       return value;
     }

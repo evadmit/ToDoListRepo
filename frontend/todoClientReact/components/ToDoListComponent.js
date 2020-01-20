@@ -1,95 +1,81 @@
 import React, { Component } from 'react';
-import {Switch, Text, StyleSheet, View, FlatList, ScrollView, Button, TouchableHighlight, SafeAreaView } from 'react-native';
+import { Switch, Text, StyleSheet, View, FlatList, TouchableHighlight, SafeAreaView } from 'react-native';
 import Swipeout from 'react-native-swipeout';
-import { withNavigation, NavigationActions, StackActions } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
-import flatListData from '../data'
 
 class ToDoListComponent extends Component {
 
     state = {
         isLoading: true, todos: {}, isDataReady: false
-      }
+    }
 
     constructor(props) {
-        super(props); 
-        console.log("in ctor", this.state)  
-       this.onSuccess = this.onSuccess.bind(this);
-       this.onError = this.onError.bind(this);
+        super(props);
+
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onError = this.onError.bind(this);
     }
-componentWillMount(){
-    this.loadTodos();
-}
-    onSuccess =  (data) => {
-      this.setState((prevState) => ({
-       
+    componentWillMount() {
+        this.loadTodos();
+    }
+
+    onSuccess = (data) => {
+        this.setState((prevState) => ({
+
             isLoading: !prevState.isLoading, todos: data, isDataReady: !prevState.isDataReady
-    }));
-             return data;
-         }
-    
-     onError =  (error) => {
-         console.log("onError: ",error)
+        }));
+        return data;
+    }
+
+    onError = (error) => {
+        console.log("onError: ", error)
         this.setState({
-             isLoading: false, isDataReady: false
+            isLoading: false, isDataReady: false
         });
-         
- 
-     }
- 
-     loadTodos =   () => {
-		try {
-			   this.props.loadTodos(this.onSuccess, this.onError)
-		} catch (err) {
+
+
+    }
+
+    loadTodos = () => {
+        try {
+            this.props.loadTodos(this.onSuccess, this.onError)
+        } catch (err) {
             console.log(err)
-			alert('Application Error. Cannot load data.', err)
+            alert('Application Error. Cannot load data.', err)
         }
     }
 
     saveTodos = newToDos => {
-		const saveTodos = AsyncStorage.setItem('todos', JSON.stringify(newToDos))
+        const saveTodos = AsyncStorage.setItem('todos', JSON.stringify(newToDos))
     }
 
     refreshFlatList = (deletedKey) => {
+        this.loadTodos();
         this.setState({
-                deletedRowKey: deletedKey
+            deletedRowKey: deletedKey
         });
     }
-    
-    
+
+
     render() {
 
-        const { isDataReady } = this.state? this.state: false
-
-        if (!isDataReady) {
-			return (<View>
-
-        <Text>...loading</Text>
-
-            </View>)
-		}
-
         return (
-            <View style={{flex:1}} navigation={this.props.navigation}>
+            <View style={{ flex: 1 }} navigation={this.props.navigation}>
+                <SafeAreaView>
 
-                   <SafeAreaView>
-    
-                <FlatList
-                    extraData={this.state.isLoading}
-                    keyExtractor={item => item._id}
-                    data={this.state.todos}                   
+                    <FlatList
+                        extraData={this.state.isLoading}
+                        keyExtractor={item => item._id}
+                        data={this.state.todos}
                         renderItem={({ item, index }) => {
                             return (
                                 <FlatListItem item={item} navigation={this.props.navigation} index={index} parentFlatList={this}>
 
                                 </FlatListItem>
                             );
-                        }
-                           
-                        }
-                        }
-                    >
-                </FlatList>
+                        }}>
+                    </FlatList>
                 </SafeAreaView>
                 <TouchableHighlight style={styles.fab} onPress={() => this.props.navigation.navigate('NewToDo')}>
                     <Text style={styles.text}>+</Text>
@@ -97,7 +83,6 @@ componentWillMount(){
             </View>
         )
     }
-
 
 }
 
@@ -108,10 +93,19 @@ class FlatListItem extends Component {
         this.showDetails = this.showDetails.bind(this);
         this.state = {
             activeRowKey: null,
+            activeRow: null,
             item: props.item
         };
-    } 
-    showDetails(_id){
+    }
+
+    onSuccess = (data) => {
+    }
+
+    onError = (error) => {
+        console.log("delete onError: ", error)
+    }
+
+    showDetails(_id) {
         this.props.navigation.navigate('EditToDo');
     }
 
@@ -125,13 +119,16 @@ class FlatListItem extends Component {
                 }
             },
             onOpen: (secId, rowId, direction) => {
-
+                this.setState({
+                    activeRowKey: this.props.item._id,
+                    activeRow: this.props.item
+                })
             },
             right: [
                 {
                     onPress: () => {
-                        const deletingRow = this.state.activeRowKey;
-                        flatListData.splice(this.props.index, 1);
+                        const deletingRow = this.state.activeRow;
+                        this.props.parentFlatList.props.deleteTodo(deletingRow._id, this.onSuccess, this.OnError)
                         //refresh
                         this.props.parentFlatList.refreshFlatList(deletingRow);
                     },
@@ -142,28 +139,29 @@ class FlatListItem extends Component {
             sectionId: 1
         };
 
-     return (
+        return (
             <Swipeout {...swipeoutSettings} >
                 <View style={{
-                        flex: 1,
-                        flexDirection: 'column'
-                    }}>
-                    <TouchableHighlight  onPress={() => this.props.navigation.navigate('EditToDo')}>  
-                       
-  
-                    <View style={{ 
-                        flex: 1, 
-                        flexDirection: 'row', 
-                        backgroundColor: 'white',
-                        justifyContent:'space-between' }} >
-                        <Text style={styles.item}>{this.props.item.title}</Text>
-                        <Switch ></Switch>
-                    </View>
-                  </TouchableHighlight> 
+                    flex: 1,
+                    flexDirection: 'column'
+                }}>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditToDo')}>
+
+
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            backgroundColor: 'white',
+                            justifyContent: 'space-between'
+                        }} >
+                            <Text style={styles.item}>{this.props.item.title}</Text>
+                            <Switch ></Switch>
+                        </View>
+                    </TouchableHighlight>
 
                 </View>
             </Swipeout>
-        )     
+        )
     }
 }
 

@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import RegisterComponent from '../../components/RegisterComponent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -37,15 +37,19 @@ class RegisterContainer extends Component {
         this.setState({ isLoading: true })
         const emailValidation = validate('email', params.email.trim())
         const passwordValidation = validate('password', params.password.trim())
-        if(params.password != params.confirmPassword){
+        if (params.password != params.confirmPassword) {
             alert("passwords doesn't match!")
-            }
-        this.props.actions.register.register({  name: params.name, email: params.email, password: params.password }, this.onSuccess, this.onError)
+        }
+        this.props.actions.register.register({ 
+            name: params.name, 
+            email: params.email, 
+            password: params.password 
+        }, this.onSuccess, this.onError)
     }
     render() {
         return (
             <RegisterComponent
-            register={this.register}
+                register={this.register}
             />
         );
     }

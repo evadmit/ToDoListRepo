@@ -13,6 +13,10 @@ export default {
         newToDo:{}
     },
 
+    updateTodo:{
+        todoItem:{}
+    },
+
     loadTodos:{
         todoList:{}
     }
