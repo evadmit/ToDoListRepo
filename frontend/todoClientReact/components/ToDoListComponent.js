@@ -5,81 +5,89 @@ import { withNavigation, NavigationActions, StackActions } from 'react-navigatio
 
 import flatListData from '../data'
 
-
 class ToDoListComponent extends Component {
-    
+
+    state = {
+        isLoading: true, todos: {}, isDataReady: false
+      }
+
     constructor(props) {
-        super(props);
-        
-        this.state = ({
-            deletedRowKey: null,
-        });
-        
+        super(props); 
+        console.log("in ctor", this.state)  
        this.onSuccess = this.onSuccess.bind(this);
        this.onError = this.onError.bind(this);
     }
-    componentWillMount(){
-        
-    }
-    onSuccess = (data) => {
-      
-         this.setState({ isLoading: false });
-         this.setState({ todos: data }); 
-
-         const { navigation } = this.props;
-         const resetAction = StackActions.reset({          
-             index: 0,
-             actions: [
-                 NavigationActions.navigate({ routeName: 'ToDoList' }),
-             ], 
-         });
-         navigation.dispatch(resetAction);
-           
+componentWillMount(){
+    this.loadTodos();
+}
+    onSuccess =  (data) => {
+      this.setState((prevState) => ({
+       
+            isLoading: !prevState.isLoading, todos: data, isDataReady: !prevState.isDataReady
+    }));
              return data;
          }
     
-     onError = (error) => {
-         this.setState({ isLoading: false })
-         console.log(error)
+     onError =  (error) => {
+         console.log("onError: ",error)
+        this.setState({
+             isLoading: false, isDataReady: false
+        });
+         
  
      }
  
- 
+     loadTodos =   () => {
+		try {
+			   this.props.loadTodos(this.onSuccess, this.onError)
+		} catch (err) {
+            console.log(err)
+			alert('Application Error. Cannot load data.', err)
+        }
+    }
+
+    saveTodos = newToDos => {
+		const saveTodos = AsyncStorage.setItem('todos', JSON.stringify(newToDos))
+    }
+
     refreshFlatList = (deletedKey) => {
-        this.setState((prevState) => {
-            return {
+        this.setState({
                 deletedRowKey: deletedKey
-            };
         });
     }
     
-
+    
     render() {
+
+        const { isDataReady } = this.state? this.state: false
+
+        if (!isDataReady) {
+			return (<View>
+
+        <Text>...loading</Text>
+
+            </View>)
+		}
+
         return (
             <View style={{flex:1}} navigation={this.props.navigation}>
 
                    <SafeAreaView>
-                <Button title="load"   onPress={() => {try {
-                      this.props.loadTodos(this.onSuccess, this.onError)
-                } catch (error) {
-                    console.log(error)
-                }
-                  
-                    }}></Button>
     
                 <FlatList
                     extraData={this.state.isLoading}
                     keyExtractor={item => item._id}
                     data={this.state.todos}                   
-                    renderItem={({ item, index }) => {
-                        if(typeof item !== 'undefined'){
-                        return (
-                            <FlatListItem item={item} navigation={this.props.navigation}  index={index} parentFlatList={this}>
+                        renderItem={({ item, index }) => {
+                            return (
+                                <FlatListItem item={item} navigation={this.props.navigation} index={index} parentFlatList={this}>
 
-                            </FlatListItem>
-                        );}
-                    }
-                    }
+                                </FlatListItem>
+                            );
+                        }
+                           
+                        }
+                        }
                     >
                 </FlatList>
                 </SafeAreaView>
@@ -97,7 +105,6 @@ class FlatListItem extends Component {
 
     constructor(props) {
         super(props);
-        console.log("FlatListItem item ", props.item.title)
         this.showDetails = this.showDetails.bind(this);
         this.state = {
             activeRowKey: null,
@@ -149,7 +156,7 @@ class FlatListItem extends Component {
                         flexDirection: 'row', 
                         backgroundColor: 'white',
                         justifyContent:'space-between' }} >
-                        <Text style={styles.item}>{this.state.item.title}</Text>
+                        <Text style={styles.item}>{this.props.item.title}</Text>
                         <Switch ></Switch>
                     </View>
                   </TouchableHighlight> 
