@@ -40,10 +40,22 @@ export function* deleteTodo(action) {
     }
 }
 
+export function* changeTodoStatus(action) {
+    try {
+        const todo = yield call(todoApis.changeTodoStatus, action.params);
+
+        action.onSuccess(todo.data);
+    } catch (error) {
+        console.log("function* changeTodoStatus", error);
+        yield put(todoActions.setError(error.toString()));
+    }
+}
+
 export function* todoSagas() {
     yield all([
         takeEvery(types.TODOS.ADD, addTodo),
         takeEvery(types.TODOS.LOAD, loadTodos),
         takeEvery(types.TODOS.DELETE, deleteTodo),
+        takeEvery(types.TODOS.CHANGE_STATUS, changeTodoStatus),
     ]);
 }

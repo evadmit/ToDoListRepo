@@ -6,19 +6,27 @@ export const loadTodos = (onSuccess, onError) => ({
     onError
 });
 
-export const addTodo = (params, onSuccess, onError)=>({
-type: TODOS.ADD,
-params,
-onSuccess,
-onError
-})
+export const addTodo = (params, onSuccess, onError) => ({
+    type: TODOS.ADD,
+    params,
+    onSuccess,
+    onError
+});
 
-export const deleteTodo = (params, onSuccess, onError)=>({
+export const deleteTodo = (params, onSuccess, onError) => ({
     type: TODOS.DELETE,
     params,
     onSuccess,
     onError
-    })
+});
+
+export const changeTodoStatus = (params, onSuccess, onError) => ({
+    type: TODOS.CHANGE_STATUS,
+    params,
+    onSuccess,
+    onError
+});
+
 export const setTodos = todos => ({
     type: TODOS.LOAD_SUCCESS,
     todos,

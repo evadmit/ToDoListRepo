@@ -36,3 +36,14 @@ export const deleteTodo = (params) => {
     return apiResult;
 }
 
+export const changeTodoStatus = (params) => {
+
+    try {
+        var apiResult = api.post(Routes.CHANGE_TODO_STATUS_URL + params);
+    }
+    catch (er) {
+        console.log("eror changeTodoStatus", er)
+    }
+
+    return apiResult;
+}

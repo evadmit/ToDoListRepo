@@ -33,11 +33,24 @@ class ToDoListContainer extends Component {
 
     }
 
+    changeTodoStatus = (params, onSuccess, onError) => {
+
+        this.setState({ isLoading: true })
+        try {
+            this.props.actions.loadTodos.changeTodoStatus(params, onSuccess, onError);
+
+        } catch (error) {
+            console.log("changeTodoStatus error", error);
+        }
+
+    }
+
     render() {
         return (
             <ToDoListComponent
                 loadTodos={this.loadTodos}
                 deleteTodo={this.deleteTodo}
+                changeTodoStatus={this.changeTodoStatus}
             />
         );
     }

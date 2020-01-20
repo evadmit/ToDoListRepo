@@ -109,6 +109,13 @@ class FlatListItem extends Component {
         this.props.navigation.navigate('EditToDo');
     }
 
+    changeStatus = (value) =>{
+        
+        const changeStatusRow = this.props.item;
+        this.props.parentFlatList.props.changeTodoStatus(changeStatusRow._id, this.onSuccess, this.OnError)
+        this.props.parentFlatList.refreshFlatList(changeStatusRow);             
+    }
+
     render() {
         const swipeoutSettings = {
             autoClose: true,
@@ -155,7 +162,7 @@ class FlatListItem extends Component {
                             justifyContent: 'space-between'
                         }} >
                             <Text style={styles.item}>{this.props.item.title}</Text>
-                            <Switch ></Switch>
+                            <Switch value={this.props.item.isCompleted} onValueChange = {this.changeStatus}></Switch>
                         </View>
                     </TouchableHighlight>
 
