@@ -6,6 +6,8 @@ import MapView, { Marker } from 'react-native-maps';
 import Input from './commons/Input';
 import { withNavigation } from 'react-navigation';
 
+var dotImage = require('../recources/map_marker.png');
+
 const options = {
   title: 'Select Avatar',
   customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -21,7 +23,7 @@ class EditToDoComponent extends Component {
   state = {
     title: '',
     description: '',
-    isCompleated: 0,
+    isCompleted: 0,
     image: '',
     userEmail: '',
     coordinates: { latitude: '', longitude: '' },
@@ -124,13 +126,16 @@ class EditToDoComponent extends Component {
 
   renderFileData() {
     try {
-      if (this.state.fileData) {
-        return <Image source={{ uri: 'data:image/jpeg;base64,' + this.state.fileData }}
+      if (this.props.navigation.state.params.item.image) {
+          return <Image source={{ uri:this.props.navigation.state.params.item.image}}
           style={styles.images}
         />
-      } else {
-
-      }
+      } 
+      if (this.state.fileData) {
+          return <Image source={{ uri: 'data:image/jpeg;base64,' + this.state.fileData}}
+          style={styles.images}
+        />
+      } 
     } catch (error) {
       console.log(error);
     }
@@ -138,20 +143,19 @@ class EditToDoComponent extends Component {
   }
 
   render() {
-    
-    const { width, height } = Dimensions.get('window');
+   const { width, height } = Dimensions.get('window');
+   const item = this.props.navigation.state.params.item;
+
     return (
-      <View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 1, flexDirection: 'column' }}>
-            <Input placeholder="Title"></Input>
-            <Input placeholder="Description" onChangeText={(value) => this.setState({ description: value })}></Input>
+            <Text>{JSON.stringify(item.title)}</Text>
+    <Input placeholder={item.description} onChangeText={(value) => this.setState({ description: value })}>{item.description}</Input>
             <Button title="Add Image" onPress={() => this.chooseImage()}  ></Button>
           </View>
           <View>
             {this.renderFileData()}
-
-            <Text style={{ textAlign: 'center' }}>no image</Text>
           </View>
         </View>
 
@@ -159,15 +163,34 @@ class EditToDoComponent extends Component {
           followUserLocation={true}
           style={{ margin: 15, height: height / 2, width: width / 5 * 4 }}
           initialRegion={{
-            latitude: 45.5209087,
-            longitude: -122.6705107,
+            latitude: item.coordinates.latitude,
+            longitude: item.coordinates.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
+        >
+
+      <Marker coordinate={item.coordinates} draggable={false}>
+            <View style={styles.marker}>
+              <Image source={dotImage} style={{ height: 35, width: 35 }} />
+            </View>
+          </Marker>
+
+        </MapView>
 
         <View style={{ margin: 10 }} >
-          <Button title="Save" onPress={() => this.props.navigation.goBack()}></Button></View>
+          <Button title="Save" 
+          onPress={() => {
+            let img = ('data:image/jpeg;base64,' + this.state.fileData);
+            this.props.editTodo({
+            _id: item._id,
+            title:  item.title,
+            description: this.state.description,
+            isCompleted:  item.isCompleted,
+            image: img,
+            userEmail:  '',
+            coordinates:  item.coordinates
+          })}}></Button></View>
       </View>
     )
   }

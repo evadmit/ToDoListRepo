@@ -12,7 +12,7 @@ class NewToDoComponent extends Component {
   state = {
     title: '',
     description: '',
-    isCompleated: 0,
+    isCompleted: false,
     image: '',
     userEmail: '',
     coordinates: { latitude: '', longitude: '' },
@@ -57,7 +57,7 @@ class NewToDoComponent extends Component {
           onPress={() => this.props.addTodo({
             title: this.state.title,
             description: this.state.description,
-            isCompleated: this.state.isCompleated,
+            isCompleted: this.state.isCompleted,
             image: this.state.image,
             userEmail: this.state.userEmail,
             coordinates: this.state.marker.coordinate

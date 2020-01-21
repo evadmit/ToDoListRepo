@@ -13,6 +13,13 @@ export const addTodo = (params, onSuccess, onError) => ({
     onError
 });
 
+export const editTodo = (params, onSuccess, onError) => ({
+    type: TODOS.EDIT,
+    params,
+    onSuccess,
+    onError
+});
+
 export const deleteTodo = (params, onSuccess, onError) => ({
     type: TODOS.DELETE,
     params,

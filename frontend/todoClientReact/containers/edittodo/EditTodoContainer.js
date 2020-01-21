@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import NewToDoComponent from '../../components/NewToDoComponent';
+import EditToDoComponent from '../../components/EditToDoComponent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as todoActions from '../../actions/todoActions';
 import { NavigationActions, StackActions } from 'react-navigation';
 
-class NewToDoContainer extends Component {
-
+class EditTodoContainer extends Component{
 
     state = { isLoading: false };
 
-    onSuccess = (newtodo) => {
-
+    onSuccess = (todo) => {
         this.setState({ isLoading: false });
         const { navigation } = this.props;
         const resetAction = StackActions.reset({
@@ -29,10 +27,11 @@ class NewToDoContainer extends Component {
 
     }
 
-    addTodo = (params) => {
+    editTodo = (params) => {
         this.setState({ isLoading: true })
 
-        this.props.actions.addTodo.addTodo({ 
+        this.props.actions.editTodo.editTodo( {
+            _id: params._id,
             title: params.title,
             description: params.description, 
             isCompleted: params.isCompleted, 
@@ -42,27 +41,26 @@ class NewToDoContainer extends Component {
         }, this.onSuccess, this.onError);
 
     }
+
     render() {
         return (
-            <NewToDoComponent
-                addTodo={this.addTodo}
+            <EditToDoComponent
+                editTodo={this.editTodo}
             />
         );
     }
+
 }
+
 const mapStateToProps = (state) => {
     return {}
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         actions: {
-            addTodo: bindActionCreators(todoActions, dispatch)
+            editTodo: bindActionCreators(todoActions, dispatch)
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewToDoContainer);
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(EditTodoContainer);

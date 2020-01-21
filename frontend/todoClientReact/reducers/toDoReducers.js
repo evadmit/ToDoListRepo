@@ -18,6 +18,9 @@ const toDoActionsReducer = (state = appState.updateTodo, action) => {
         case types.TODOS.CHANGE_STATUS:
             return { ...state, ...{ item: action.data } }
 
+        case types.TODOS.EDIT:
+            return { ...state, ...{ item: action.data } }
+
         case types.TODOS.DELETE:
             return { ...state, ...{ item: action.data } }
 

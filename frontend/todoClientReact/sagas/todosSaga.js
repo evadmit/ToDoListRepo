@@ -16,7 +16,6 @@ export function* loadTodos(action) {
     }
 }
 
-
 export function* addTodo(action) {
     try {
         const todo = yield call(todoApis.addTodo, action.params);
@@ -27,7 +26,6 @@ export function* addTodo(action) {
         yield put(todoActions.setError(error.toString()));
     }
 }
-
 
 export function* deleteTodo(action) {
     try {
@@ -51,11 +49,23 @@ export function* changeTodoStatus(action) {
     }
 }
 
+export function* editTodo(action) {
+    try {
+        const todo = yield call(todoApis.editTodo, action.params);
+
+        action.onSuccess(todo.data);
+    } catch (error) {
+        console.log("function* editTodo", error);
+        yield put(todoActions.setError(error.toString()));
+    }
+}
+
 export function* todoSagas() {
     yield all([
         takeEvery(types.TODOS.ADD, addTodo),
         takeEvery(types.TODOS.LOAD, loadTodos),
         takeEvery(types.TODOS.DELETE, deleteTodo),
         takeEvery(types.TODOS.CHANGE_STATUS, changeTodoStatus),
+        takeEvery(types.TODOS.EDIT, editTodo),
     ]);
 }

@@ -92,6 +92,7 @@ class FlatListItem extends Component {
         super(props);
         this.showDetails = this.showDetails.bind(this);
         this.state = {
+            isCompleted: props.item.isCompleted,
             activeRowKey: null,
             activeRow: null,
             item: props.item
@@ -110,10 +111,13 @@ class FlatListItem extends Component {
     }
 
     changeStatus = (value) =>{
-        
+       
+        this.state.isCompleted = value;
+        this.props.item.isCompleted = value;
         const changeStatusRow = this.props.item;
         this.props.parentFlatList.props.changeTodoStatus(changeStatusRow._id, this.onSuccess, this.OnError)
-        this.props.parentFlatList.refreshFlatList(changeStatusRow);             
+        this.props.parentFlatList.refreshFlatList(changeStatusRow);   
+                  
     }
 
     render() {
@@ -152,7 +156,7 @@ class FlatListItem extends Component {
                     flex: 1,
                     flexDirection: 'column'
                 }}>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditToDo')}>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditToDo', {item: this.state.item})}>
 
 
                         <View style={{
@@ -162,7 +166,7 @@ class FlatListItem extends Component {
                             justifyContent: 'space-between'
                         }} >
                             <Text style={styles.item}>{this.props.item.title}</Text>
-                            <Switch value={this.props.item.isCompleted} onValueChange = {this.changeStatus}></Switch>
+                            <Switch value={this.state.isCompleted} onValueChange = {this.changeStatus}></Switch>
                         </View>
                     </TouchableHighlight>
 

@@ -32,7 +32,7 @@ class ToDoListContainer extends Component {
         }
 
     }
-
+    
     changeTodoStatus = (params, onSuccess, onError) => {
 
         this.setState({ isLoading: true })
